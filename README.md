@@ -1,1 +1,1 @@
-# machani1.github.io
+# machaniG.github.io
