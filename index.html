@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>My Portfolio</title>
+  <style>
+    body { font-family: Arial; padding: 20px; }
+    .project { border: 1px solid #ccc; padding: 10px; margin: 10px; border-radius: 8px; max-width: 600px; }
+    .thumbnail { width: 100%; max-width: 500px; height: auto; }
+    .tags span { display: inline-block; background: #eee; margin: 2px; padding: 3px 6px; border-radius: 4px; }
+  </style>
+</head>
+<body>
+  <h1>My Project Portfolio</h1>
+  <div id="projects"></div>
+
+  <script>
+    fetch('projects.json')
+      .then(response => response.json())
+      .then(data => {
+        const container = document.getElementById("projects");
+        data.forEach(project => {
+          const card = document.createElement("div");
+          card.className = "project";
+          card.innerHTML = `
+            <h2>${project.name}</h2>
+            <img src="projects/${project.folder}/cover.png" class="thumbnail" alt="Thumbnail"/>
+            <p>${project.description}</p>
+            <div class="tags">${project.tags.map(tag => `<span>${tag}</span>`).join(" ")}</div>
+            <ul>
+              <li><a href="projects/${project.folder}/simple_analysis.py">Simple Analysis</a></li>
+              <li><a href="projects/${project.folder}/predictive_model.py">Predictive Model</a></li>
+              <li><a href="projects/${project.folder}/dashboard.html">Dashboard</a></li>
+              <li><a href="projects/${project.folder}/analysis.sql">SQL Analysis</a></li>
+            </ul>
+          `;
+          container.appendChild(card);
+        });
+      });
+  </script>
+</body>
+</html>

@@ -1,0 +1,14 @@
+[
+  {
+    "name": "Retail Analysis",
+    "folder": "project-retail-analysis",
+    "description": "Analyze customer purchases and forecast CLV",
+    "tags": ["Python", "SQL", "Dashboard"]
+  },
+  {
+    "name": "House Price Prediction",
+    "folder": "project-house-prices",
+    "description": "Use ensemble ML models to predict house prices",
+    "tags": ["Machine Learning", "Python", "Dashboard"]
+  }
+]
