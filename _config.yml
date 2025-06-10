@@ -22,7 +22,7 @@ avatar_image: /img/profile_picture.JPG
 
 #-------------------------------
 # Contact links
-linkedln: "www.linkedin.com/in/fmachani/#" # Add your linkedln handle
+linkedln: "www.linkedin.com/in/fmachani/" # Add your linkedln handle
 github: "https://github.com/machaniG/#"  # Add your github handle
 
 paginate: 6
