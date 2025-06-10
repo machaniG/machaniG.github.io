@@ -1,11 +1,11 @@
 ---
 layout: post
-title: The Column Subscriber Analysis
-image: "/posts/thecolumn_share.png"
+title: Understanding E-Commerce Consumer Buying Habits  
+image: "/posts/e-commerce.png"
 tags: [Python, Power BI]
 ---
 
-I had the pleasure in being tasked with analyzing subscriber data for The Column and providing recommendations to improve their advertising processes. Their main objectives were to increase clicks, opens, and minimize unsubscribers for their newsletter.
+I took the pleasure to segment and analyze customers of an e-commerce business to better understand their purchasing behavior and provided recommendations for targeted marketing and better resource allocation. The aim was to improve customer experiences, and potentially increase sales and customer retention. 
 
 ---
 
