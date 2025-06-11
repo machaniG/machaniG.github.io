@@ -12,44 +12,111 @@ I took the pleasure to segment and analyze customers of an e-commerce business t
 First I imported the required libraries
 
 ```ruby
+# load libraries
 import pandas as pd
+import numpy as np
+import datetime
 import matplotlib.pyplot as plt
 import seaborn as sns
-sns.set()
 import plotly.express as px
-import numpy as np
+sns.set()
 from sklearn.cluster import KMeans
 from sklearn.preprocessing import MinMaxScaler
 import scipy 
 import statsmodels.api as sme
-from statsmodels.tsa.ar_model import AR,AutoRegResults
 
 ```
-First I wanted to investigate the popular times of day that subscribers open the newsletter, I visualized a strip plot of the most common hours the newsletter is actually opened by subscribers
+First I loaded and combined the datasents using pandas. I started by combining 4 of the five datasets and then I converted the transaction date to datetime using  pd.to_datetime() before merging the new df to the discounts and coupons data.
 
 ```ruby
-ax = sns.stripplot(x='Hour', y='Opens', data=summary)
-```
-![alt text](/img/posts/Strip_plot.png "Strip Plot")
+df1 = pd.read_excel("CustomersData.xlsx")
+df2 = pd.read_csv("Discount_Coupon.csv")
+df3 = pd.read_csv("Marketing_Spend.csv")
+df4 = pd.read_csv("Online_Sales.csv")
+df5 = pd.read_excel("Tax_amount.xlsx")
 
+# merge the dataset using pandas df.merge() function
+df = df1.merge(df4, on = "CustomerID", how = "inner")
+df = df.merge(df5, on = "Product_Category")
+df = df.merge(df3, left_on="Transaction_Date", right_on="Date")
+
+#convert transaction date to datetime
+df["Transaction_Date"] = pd.to_datetime(df["Transaction_Date"], format='%m/%d/%Y')
+df['Month'] = df["Transaction_Date"].apply(lambda x : x.strftime('%m'))
+df['Month'] = df['Month'].astype('int')
+
+#convert 'month' in df2 to datetime also
+df2["Month"] = df2['Month'].apply(lambda x: datetime.datetime.strptime(x, '%b').month)
+
+# now merge df2 to the rest of the data on 'Month' and 'Product_Category'
+df = df.merge(df2, on = ['Month','Product_Category'], how = 'outer')
+```
+# Sales Behavior 
+
+To analyze the sales behavior, I calculated total net sales (total transaction value) excluding tax and delivery charges for each transaction by multiplying unit price by quantity purchased and the discount.
+
+```ruby
+#convert discount to decimal
+df["Discount_pct"] = df["Discount_pct"] / 100
+#calculate net_sales
+df["net_sales"] = df["Avg_UnitPrice"] * df["Quantity"] * (1 - df['Discount_pct'])
+```
+Next I checked the distribution of net sales and found that the data is highly skewed.
+
+```ruby
+#sales distribution
+sns.boxplot(data = df, y = "net_sales")
+plt.ylabel("Total Net Sales")
+plt.title("Sales Distribution")
+plt.savefig("sales_distribution.png")
+plt.show()
+```
+![alt text](/img/sales_distribution.png "Box Plot")
 ---
-I notice that most of the time the newsletters are opened between 7-9, but the data corresponds to the time the newsletters are actually sent. I visualize a scatterplot of sends (subscriber count) and open and notice a linear relationship. This prompted me to perform a linear regression and visualize a basic model.
-
+I then generated descriptive statistics to better understand the central tendency, dispersion and shape of the net sale's distribution. I also looked at the quantiles and noticed the skewedness in transaction amount.
 ```ruby
-y = summary['Opens']
-x = summary['Sends']
-np.polyfit(x,y, deg =1)
+df["net_sales"].describe()
+df["net_sales"].quantile([0.5, 0.75, 0.95, 0.99])
+```
 
-potential_Send = np.linspace(0,5000,100)
-potential_Opens = 0.44547871*potential_Send + 183.80574801
+![alt text](/img/quantiles.png "Quantiles")
 
-sns.scatterplot(x = 'Sends', y = 'Opens', data = summary)
-plt.plot(potential_Send,potential_Opens, color = 'red')
+### Business Insights
+
+I noticed that most transactions are relatively small: The median is just 24.5.
+
+There is a long tail: The gap between the median (24.5) and the 99th percentile (428.4) shows that while most transactions are modest, a small number are much larger.
+
+**High-value customers:**
+
+The top 5% and especially the top 1% of transactions are significantly higher, which may indicate VIP or bulk buyers.
+
+The top 1% are rare, very high-value transactions.
+
+This prompted me to perform rule-based customer segmentation and investigate the high value transactions.
+
+## Rule-Based Customer Segmentation
+
+First I performed discriptive statistics on the top 1% spenders to undestand the distribution of transaction values and the quantity of products they buy
+```ruby
+one_percent = df["net_sales"].quantile([0.99]).iloc[0]
+top_1_percent = df[df["net_sales"] > one_percent]
+top_1_percent[["net_sales", "Quantity"]].describe()
+
+ax = sns.histplot(data = top_1_percent, x = "net_sales")
+for location in ['right', 'top']:
+        ax.spines[location].set_visible(False)
+plt.title("Top 1% Spenders")
+plt.xlabel("Net Sales")
+plt.savefig("top1_percent.png")
 plt.show()
 ```
 
-![alt text](/img/posts/Opens_Regression.png "Opens Linear Regression")
+![alt text](/img/top1_percent.jpg "Histogram")
 ---
+I found that even in the top 1% spenders, there is still a long tail because 75 percent of the transactions are below the mean transaction value. The average transaction is $825 while the maximum transaction is about $8.5k. A result, I decided to introduce another threshold: the 99 percentile transactions to range from above 99% but below $1,000. I introduced a VIP group for the customers whose transaction value exceed $1k per transaction.
+
+
 After performing more analysis, I did research and found that Mailchip suggests that 10 AM is the most optimal time to send out newsletters/emails to subscribers. I used that as  my recommendation to The Column.
 
 ![alt text](/img/posts/Opens_Analysis.jpg "Opens Analysis")
