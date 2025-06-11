@@ -148,7 +148,29 @@ print("Regular transactions:", regular["CustomerID"].count())
 ```
 ![image](https://github.com/user-attachments/assets/b186047f-3fd9-43f9-bd1d-1f95e5d0a92e)
 
+### Business Insights
+
+**High value customers:**
+
+I discovered that we have high-value customers and decided to focus my analysis on understanding their behavior and preferences for personalized marketing.
+
+The 41 customers with transactions above 1,000 represent a small but extremely valuable segment. Targeting them with personalized offers, loyalty programs, or exclusive services can drive significant revenue growth.
+
+Top percentile leverage:
+The 807 (95th percentile) and 299 (99th percentile) customers are critical for sustaining and growing the business. Understanding their preferences, purchase patterns, and demographics (e.g., location, gender) can help to tailor marketing and retention strategies.
+
 ### Assign customer segments
+
+Customer Segmentation: Rule-Based
+
+VIP/Elite tier: The 41 ultra high-value customers
+
+Premium tier: The 258 in the 99th percentile
+
+Loyalty tier: The 508 in the 95th percentile
+
+Regular: The rest of the customers, 661
+
 ```ruby
 # Initialize segment column with NaNs
 df["segment"] = np.nan
