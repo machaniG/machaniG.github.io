@@ -111,11 +111,35 @@ plt.xlabel("Net Sales")
 plt.savefig("top1_percent.png")
 plt.show()
 ```
-
-![alt text](/img/top1_percent.jpg "Histogram")
+![alt text](/img/top1_percent.png "Histogram")
 ---
 I found that even in the top 1% spenders, there is still a long tail because 75 percent of the transactions are below the mean transaction value. The average transaction is $825 while the maximum transaction is about $8.5k. A result, I decided to introduce another threshold: the 99 percentile transactions to range from above 99% but below $1,000. I introduced a VIP group for the customers whose transaction value exceed $1k per transaction.
 
+### Creating Customer Segments
+Top 5% Customers by Spend
+Top 1% spenders
+Ultra high-value customers by spend: Transactions above 1k
+The rest of the customers
+```ruby
+#define the criteria
+cutoff = df["net_sales"].quantile(0.95)
+one_percent = df["net_sales"].quantile([0.99]).iloc[0]
+above_1k = df[df["net_sales"] > 1000]
+
+#assign customer segments
+vip = df[df["net_sales"] > 1000]
+premium =  df[(df["net_sales"] > one_percent) & (~df["CustomerID"].isin(vip["CustomerID"]))]
+loyalty = df[(df["net_sales"] > cutoff) & (~df["CustomerID"].isin(premium["CustomerID"])) & (~df["CustomerID"].isin(vip["CustomerID"]))]
+regular = df[(df["net_sales"] <= cutoff) & (~df["CustomerID"].isin(premium["CustomerID"])) \
+& (~df["CustomerID"].isin(vip["CustomerID"])) & (~df["CustomerID"].isin(loyalty["CustomerID"]))]
+
+print(vip["CustomerID"].nunique())
+print(premium["CustomerID"].nunique())
+print(loyalty["CustomerID"].nunique())
+print("Regular transactions:", regular["CustomerID"].count())
+print("Regular customers:", regular["CustomerID"].nunique())
+print("Total customers:", df["CustomerID"].nunique())
+```
 
 After performing more analysis, I did research and found that Mailchip suggests that 10 AM is the most optimal time to send out newsletters/emails to subscribers. I used that as  my recommendation to The Column.
 
