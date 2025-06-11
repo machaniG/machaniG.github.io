@@ -126,21 +126,49 @@ cutoff = df["net_sales"].quantile(0.95)
 one_percent = df["net_sales"].quantile([0.99]).iloc[0]
 above_1k = df[df["net_sales"] > 1000]
 
-#assign customer segments
+# define customer segments
 vip = df[df["net_sales"] > 1000]
 premium =  df[(df["net_sales"] > one_percent) & (~df["CustomerID"].isin(vip["CustomerID"]))]
 loyalty = df[(df["net_sales"] > cutoff) & (~df["CustomerID"].isin(premium["CustomerID"])) & (~df["CustomerID"].isin(vip["CustomerID"]))]
 regular = df[(df["net_sales"] <= cutoff) & (~df["CustomerID"].isin(premium["CustomerID"])) \
 & (~df["CustomerID"].isin(vip["CustomerID"])) & (~df["CustomerID"].isin(loyalty["CustomerID"]))]
 
-print(vip["CustomerID"].nunique())
-print(premium["CustomerID"].nunique())
-print(loyalty["CustomerID"].nunique())
-print("Regular transactions:", regular["CustomerID"].count())
+# number of customers per segment
+print("Vip customers:", vip["CustomerID"].nunique())
+print("Premium customers:", premium["CustomerID"].nunique())
+print("Loyalty customers:", loyalty["CustomerID"].nunique())
 print("Regular customers:", regular["CustomerID"].nunique())
 print("Total customers:", df["CustomerID"].nunique())
-```
 
+#number of transactions per segment
+print("Vip transactions:", vip["CustomerID"].count())
+print("Premium transactions:", premium["CustomerID"].count())
+print("Loyalty transactions:", loyalty["CustomerID"].count())
+print("Regular transactions:", regular["CustomerID"].count())
+```
+![image](https://github.com/user-attachments/assets/b186047f-3fd9-43f9-bd1d-1f95e5d0a92e)
+
+### Assign customer segments
+```ruby
+# Initialize segment column with NaNs
+df["segment"] = np.nan
+df["segment"] = pd.Series(dtype="object")
+
+# Assign segments in order of exclusivity
+df.loc[df["CustomerID"].isin(vip["CustomerID"]), "segment"] = "VIP Tier"
+
+df.loc[
+    (df["CustomerID"].isin(premium["CustomerID"])) & (df["segment"].isna()),
+    "segment"] = "Premium Tier"
+
+df.loc[
+    (df["CustomerID"].isin(loyalty["CustomerID"])) & (df["segment"].isna()),
+    "segment"] = "Loyalty Tier"
+
+df.loc[
+    (df["CustomerID"].isin(regular["CustomerID"])) & (df["segment"].isna()),
+    "segment"] = "Regular"
+```
 After performing more analysis, I did research and found that Mailchip suggests that 10 AM is the most optimal time to send out newsletters/emails to subscribers. I used that as  my recommendation to The Column.
 
 ![alt text](/img/posts/Opens_Analysis.jpg "Opens Analysis")
