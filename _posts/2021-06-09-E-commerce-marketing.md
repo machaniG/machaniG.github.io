@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Understanding E-Commerce Consumer Buying Habits  
-image: "/img/posts/ecommerce_image.jpeg"
+image: "/posts/ecommerce_image.jpeg"
 tags: [Python, Power BI]
 ---
 
