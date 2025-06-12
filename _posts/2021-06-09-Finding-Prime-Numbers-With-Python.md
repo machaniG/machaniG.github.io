@@ -1,8 +1,8 @@
 ---
 layout: post
 title: Finding Prime Numbers with Python
-image: "/posts/primes_image.jpeg"
-tags: [Python, Primes]
+image: "/img/posts/apparel_sales.jpeg"
+tags: [Python, Power BI]
 ---
 
 In this post I'm going to run through a function in Python that can quickly find all the Prime numbers below a given value.  For example, if I passed the function a value of 100, it would find all the prime numbers below 100!
