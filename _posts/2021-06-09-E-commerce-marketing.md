@@ -241,6 +241,8 @@ fig.show()
 ![alt text](/img/vipsales_loc_gender.png "Stacked Bars")
 ![alt text](/img/vip_customers_location&gender.png "Column Plot")
 
+Most VIP sales come from Chicago and California and mainly from female customers. However, There are more male than female customers in Chicago.
+
 ### Which Product Categories are Associated with High-Value Transactions?
 
 The aim is to discover which categories drive the most revenue from big spenders and inform inventory, promotions, and procurement.
@@ -319,10 +321,13 @@ fig.show()
 
 After performing more analysis, I discovered that there was a spike of sales in April from high value transactions. Most VIP transactions happen on Thursdays and Fridays and there are literally no transactions on Tuesdays. 
 
-I did research and found that Mailchip suggests that 10 AM is the most optimal time to send out newsletters/emails to subscribers. I used that as  my recommendation to The Column.
-### Comparing Key KPIs Across Customer Segments
+## Comparing Key KPIs Across Customer Segments
 
 Finally I exported the data to Power BI and created a dashboard comparing key KPIs across the four customer segments.
+
+### **Business Insights**
+
+In general, the drivers of revenue are the loyalty and premium groups, and the leading locations in terms of net sales are Chicago and California. Office products are the leading category in quantity sold. There are more female customers than male across all segments and only a few one-time off buyers from the regular group. There was a spike of sales in April from the VIP tier. I used that as  my recommendation to the company.
 
 ![alt text](/img/ecommerce_dashboard.png "Dashboard")
 
