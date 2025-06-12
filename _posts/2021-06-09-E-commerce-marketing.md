@@ -37,7 +37,7 @@ def horizontal_bars(df, x, y, palette):
     plt.tight_layout()
     return ax
 ````
-First I loaded and combined the datasents using pandas. I started by combining 4 of the five datasets and then I converted the transaction date to datetime using  pd.to_datetime() before merging the new df to the discounts and coupons data.
+First I loaded and combined the datasets using pandas. I started by combining 4 of the five datasets and then I converted the transaction date to datetime using  pd.to_datetime() before merging the new df to the discounts and coupons data.
 
 ```ruby
 df1 = pd.read_excel("CustomersData.xlsx")
@@ -157,7 +157,7 @@ print("Premium transactions:", premium["CustomerID"].count())
 print("Loyalty transactions:", loyalty["CustomerID"].count())
 print("Regular transactions:", regular["CustomerID"].count())
 ```
-![image](https://github.com/user-attachments/assets/b186047f-3fd9-43f9-bd1d-1f95e5d0a92e)
+![alt text](/img/vip_customers.png "Table")
 
 ### Business Insights
 
@@ -238,8 +238,8 @@ fig = px.bar(gender_summary, x = "Location", y = "Unique_Customers", color = "Ge
 fig.update_layout(xaxis_title="", yaxis_title="Number of Customers", paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)' )
 fig.show()
 ```
-![vipsales_loc_gender](https://github.com/user-attachments/assets/8a66b77f-9c52-4909-afc7-30715eb43433)
-![vip_customers_location gender](https://github.com/user-attachments/assets/0dfe3798-71a4-410c-8d4e-e7e3ce2048e7)
+![alt text](/img/vipsales_loc_gender.png "Stacked Bars")
+![alt text](/img/vip_customers_location&gender.png "Column Plot")
 
 ### Which Product Categories are Associated with High-Value Transactions?
 
@@ -257,7 +257,7 @@ plt.ylabel("")
 plt.savefig("vip sales_bycategory.png")
 plt.show()
 ```
-![vip sales_bycategory](https://github.com/user-attachments/assets/6f7bb0d2-a809-4b9e-8e6c-cb32f0da6e72)
+![alt text](/img/vip_sales_bycategory.png "Horizontal Bars")
 
 ### Which products are mostly bought by vip customers?
 ```ruby
@@ -267,7 +267,7 @@ fig = px.bar(vip, x = "Product_Category", y = "Quantity", color = "Location", ba
 fig.update_layout(xaxis_title="", yaxis_title="", paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)')
 fig.show()
 ```
-![quantity_by_cat loc](https://github.com/user-attachments/assets/d3e0b45b-c7e4-4055-a54e-9e358989c8dc)
+![alt text](/img/quantity_by_cat&loc.png "Bar Plot")
 
 A lot of the vip revenue is coming from apparel and notebooks & journals categories. Bulky orders are coming mainly from Chicago and California. Interestingly, this group of customers do not buy Nest products.
 
@@ -292,8 +292,9 @@ fig2.update_traces(line_color = "#8e501b")
 fig1.show()
 fig2.show()
 ```
-![vipsales_overtime](https://github.com/user-attachments/assets/6865d995-d5e5-4d89-81e6-d5a4a3a6c239)
-![vip_transactions](https://github.com/user-attachments/assets/00956437-88ef-41e1-948f-22ddad19939b)
+![alt text](/img/vipsales_overtime.png "Line Graph")
+![alt text](/img/vip_transactions.png "Line Graph")
+
 ## Which Days of the Week do We Expect VIP Sales?
 
 Next I sought to understand which days of the week are we expecting high transactions to inform inventory and staffing.
@@ -312,7 +313,7 @@ fig.update_xaxes(tickangle= -45)
 fig.update_traces(line_color = "black")
 fig.show()
 ```
-![transa_weekdays](https://github.com/user-attachments/assets/44b0ef86-692b-4bba-8b6b-c7f277218b81)
+![alt text](/img/transa_weekdays.png "Line Graph")
 
 ## Business Insights
 
@@ -323,7 +324,7 @@ I did research and found that Mailchip suggests that 10 AM is the most optimal t
 
 Finally I exported the data to Power BI and created a dashboard comparing key KPIs across the four customer segments.
 
-![Screenshot (136)](https://github.com/user-attachments/assets/5e91756d-b9bd-4eab-ab8f-9b5180f4c43d)
+![alt text](/img/ecommerce_dashboard.png "Dashboard")
 
 
 
