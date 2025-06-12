@@ -20,12 +20,23 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import plotly.express as px
 sns.set()
-from sklearn.cluster import KMeans
-from sklearn.preprocessing import MinMaxScaler
-import scipy 
-import statsmodels.api as sme
-
+import plotly.graph_objects as go
 ```
+#### Write a helper function to call whenever I want to plot horizontal bars using seaborn
+```ruby
+#helper function to plot horizontal bars
+def horizontal_bars(df, x, y, palette):
+    ax = sns.barplot(data = df, x = x, y = y, orient = 'h', errorbar = None, palette = palette)
+    #remove all grids
+    for location in ['left', 'right', 'top', 'bottom']:
+        ax.spines[location].set_visible(False)
+    #move the tick labels to the top of the graph, the top ticks instead of the bottom ones & color the x-tick labels
+    ax.xaxis.tick_top()
+    ax.xaxis.set_label_position('top')
+    ax.tick_params(top=False, left=False)
+    plt.tight_layout()
+    return ax
+````
 First I loaded and combined the datasents using pandas. I started by combining 4 of the five datasets and then I converted the transaction date to datetime using  pd.to_datetime() before merging the new df to the discounts and coupons data.
 
 ```ruby
@@ -116,9 +127,9 @@ plt.show()
 I found that even in the top 1% spenders, there is still a long tail because 75 percent of the transactions are below the mean transaction value. The average transaction is $825 while the maximum transaction is about $8.5k. A result, I decided to introduce another threshold: the 99 percentile transactions to range from above 99% but below $1,000. I introduced a VIP group for the customers whose transaction value exceed $1k per transaction.
 
 ### Creating Customer Segments
-Top 5% Customers by Spend
-Top 1% spenders
-Ultra high-value customers by spend: Transactions above 1k
+Top 5% Customers by Spend;
+Top 1% spenders;
+Ultra high-value customers by spend: Transactions above 1k;
 The rest of the customers
 ```ruby
 #define the criteria
@@ -154,7 +165,7 @@ print("Regular transactions:", regular["CustomerID"].count())
 
 I discovered that we have high-value customers and decided to focus my analysis on understanding their behavior and preferences for personalized marketing.
 
-The 41 customers with transactions above 1,000 represent a small but extremely valuable segment. Targeting them with personalized offers, loyalty programs, or exclusive services can drive significant revenue growth.
+The 41 customers with transactions above $1,000 represent a small but extremely valuable segment. Targeting them with personalized offers, loyalty programs, or exclusive services can drive significant revenue growth.
 
 Top percentile leverage:
 The 807 (95th percentile) and 299 (99th percentile) customers are critical for sustaining and growing the business. Understanding their preferences, purchase patterns, and demographics (e.g., location, gender) can help to tailor marketing and retention strategies.
@@ -191,11 +202,128 @@ df.loc[
     (df["CustomerID"].isin(regular["CustomerID"])) & (df["segment"].isna()),
     "segment"] = "Regular"
 ```
-After performing more analysis, I did research and found that Mailchip suggests that 10 AM is the most optimal time to send out newsletters/emails to subscribers. I used that as  my recommendation to The Column.
+## Investigate High-Value Transactions
 
-![alt text](/img/posts/Opens_Analysis.jpg "Opens Analysis")
+### Which Location and Gender are Contributing More to the VIP Sales?
 
-![alt text](/img/posts/Clicks_Analysis.jpg "Clicks Analysis")
+The goal is to understand which locations the high spenders come from and their gender distribution in order to inform targeted marketing strategies.
 
-![alt text](/img/posts/Lifetime_Column.jpg "Lifetime Performance")
+I already have vip dataframe from above (vip = df[df["net_sales"] > 1000]). I used pandas grouby() and agg() functions to generate a summary of vip sales by location and gender.
+
+```ruby
+vip_summary = vip.groupby("CustomerID").agg({
+    "net_sales": "sum",
+    "Transaction_ID": "count",
+    "Quantity": "sum",
+    "Delivery_Charges": "sum",
+    "Location": "first",
+    "Gender": "first"
+})
+# Group by both Location and Gender, then count unique customers
+gender_summary = vip.groupby(["Location", "Gender"])["CustomerID"].nunique().reset_index()
+# Rename the column for clarity
+gender_summary.rename(columns={"CustomerID": "Unique_Customers"}, inplace=True)
+
+#plots
+fig = px.bar(vip_summary, x="net_sales", y="Location", color="Gender", orientation='h',
+    hover_data=["CustomerID", "Quantity"],
+    color_discrete_sequence=["#678199", "#9E7C92"])
+fig.update_layout(xaxis_title="", yaxis_title="")
+fig.show()
+
+fig = px.bar(gender_summary, x = "Location", y = "Unique_Customers", color = "Gender", barmode="group",  
+    title="VIP Customers by Location and Gender", width=600, height=500,
+    color_discrete_sequence=["#9E7C92", "#678199"]
+)
+fig.update_layout(xaxis_title="", yaxis_title="Number of Customers", paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)' )
+fig.show()
+```
+![vipsales_loc_gender](https://github.com/user-attachments/assets/8a66b77f-9c52-4909-afc7-30715eb43433)
+![vip_customers_location gender](https://github.com/user-attachments/assets/0dfe3798-71a4-410c-8d4e-e7e3ce2048e7)
+
+### Which Product Categories are Associated with High-Value Transactions?
+
+The aim is to discover which categories drive the most revenue from big spenders and inform inventory, promotions, and procurement.
+```ruby
+category = vip.groupby("Product_Category")["net_sales"].agg(["count", "sum", "mean"]).sort_values("sum", ascending=False)
+
+# call horizontal_bars we created above to plot sales by product category
+colors = ['brown' if (x > 30000)  else "#b6b6b6" for x in category["sum"]] 
+plt.figure(figsize = (9, 4))
+fig = horizontal_bars(category, x = "sum", y = "Product_Category", palette = colors)
+fig.text(x=-30, y=-1.5, s="Total VIP Sales by Product Category", fontsize = 12, weight = "bold")
+plt.xlabel("")
+plt.ylabel("")
+plt.savefig("vip sales_bycategory.png")
+plt.show()
+```
+![vip sales_bycategory](https://github.com/user-attachments/assets/6f7bb0d2-a809-4b9e-8e6c-cb32f0da6e72)
+
+### Which products are mostly bought by vip customers?
+```ruby
+fig = px.bar(vip, x = "Product_Category", y = "Quantity", color = "Location", barmode="group",
+        title = "Quantity Sold to VIP Customers by Category and Location", width=900, height=600,
+        color_discrete_sequence=["black", "gray", "#8e501b", "#b6b6b6", "#dc7f18"])
+fig.update_layout(xaxis_title="", yaxis_title="", paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)')
+fig.show()
+```
+![quantity_by_cat loc](https://github.com/user-attachments/assets/d3e0b45b-c7e4-4055-a54e-9e358989c8dc)
+
+A lot of the vip revenue is coming from apparel and notebooks & journals categories. Bulky orders are coming mainly from Chicago and California. Interestingly, this group of customers do not buy Nest products.
+
+## Temporal Trends of High-Value Transactions
+
+The aim of trends analysis is to identify seasonality or anomalies in high-value sales so as to optimize timing for marketing and restocking.
+
+### Daily Transactions and Sales Over Time
+```ruby
+# Group by date for transaction count & net sales sum
+daily_counts = vip.groupby(vip["Transaction_Date"].dt.date).size().reset_index(name="transaction_count")
+
+daily_sales = vip.groupby(vip["Transaction_Date"])["net_sales"].sum().reset_index()
+
+fig1 = px.line(daily_counts, x="Transaction_Date", y="transaction_count", markers=True, title="Daily Transaction Count", width=900, height=500)
+fig1.update_layout(xaxis_title="", yaxis_title="Number of Transactions", paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)')
+fig1.update_traces(line_color = "#8e501b")
+
+fig2 = px.line(daily_sales, x="Transaction_Date", y="net_sales", markers=True, title="Daily Net Sales", width=900, height=500)
+fig2.update_layout(xaxis_title="", yaxis_title="Net Sales", paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)')
+fig2.update_traces(line_color = "#8e501b")
+fig1.show()
+fig2.show()
+```
+![vipsales_overtime](https://github.com/user-attachments/assets/6865d995-d5e5-4d89-81e6-d5a4a3a6c239)
+![vip_transactions](https://github.com/user-attachments/assets/00956437-88ef-41e1-948f-22ddad19939b)
+## Which Days of the Week do We Expect VIP Sales?
+
+Next I sought to understand which days of the week are we expecting high transactions to inform inventory and staffing.
+```ruby
+vip["DayOfWeek"] = vip["Transaction_Date"].dt.day_name()
+
+#number of transactions per day
+day_counts = vip["DayOfWeek"].value_counts().reindex([
+    "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"
+]).reset_index()
+day_counts.columns = ["DayOfWeek", "TransactionCount"]
+
+fig = px.line(day_counts, x="DayOfWeek", y="TransactionCount", markers=True, title="Transactions by Day of the Week", width=600, height=450)
+fig.update_layout(xaxis_title="", yaxis_title="Number of Transactions", paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)')
+fig.update_xaxes(tickangle= -45)
+fig.update_traces(line_color = "black")
+fig.show()
+```
+![transa_weekdays](https://github.com/user-attachments/assets/44b0ef86-692b-4bba-8b6b-c7f277218b81)
+
+## Business Insights
+
+After performing more analysis, I discovered that there was a spike of sales in April from high value transactions. Most VIP transactions happen on Thursdays and Fridays and there are literally no transactions on Tuesdays. 
+
+I did research and found that Mailchip suggests that 10 AM is the most optimal time to send out newsletters/emails to subscribers. I used that as  my recommendation to The Column.
+### Comparing Key KPIs Across Customer Segments
+
+Finally I exported the data to Power BI and created a dashboard comparing key KPIs across the four customer segments.
+
+![Screenshot (136)](https://github.com/user-attachments/assets/5e91756d-b9bd-4eab-ab8f-9b5180f4c43d)
+
+
 
