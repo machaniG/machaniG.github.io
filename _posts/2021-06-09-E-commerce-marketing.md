@@ -329,6 +329,7 @@ Finally I exported the data to Power BI and created a dashboard comparing key KP
 
 In general, the drivers of revenue are the loyalty and premium groups, and the leading locations in terms of net sales are Chicago and California. Office products are the leading category in quantity sold. There are more female customers than male across all segments and only a few one-time off buyers from the regular group. There was a spike of sales in April from the VIP tier. I used that as  my recommendation to the company.
 
+
 ![alt text](/img/ecommerce_dashboard.png "Dashboard")
 
 
