@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Finding Prime Numbers with Python
-image: "/img/posts/apparel_sales.jpeg"
+image: "/img/posts/primes_image.jpeg"
 tags: [Python, Power BI]
 ---
 
