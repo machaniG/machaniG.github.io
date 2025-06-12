@@ -239,7 +239,7 @@ fig.update_layout(xaxis_title="", yaxis_title="Number of Customers", paper_bgcol
 fig.show()
 ```
 ![alt text](/img/vipsales_loc_gender.png "Stacked Bars")
-![alt text](/img/vip_customers_location&gender.png "Column Plot")
+![alt text](/img/customers_location.png "Column Plot")
 
 Most VIP sales come from Chicago and California and mainly from female customers. However, There are more male than female customers in Chicago.
 
@@ -269,7 +269,7 @@ fig = px.bar(vip, x = "Product_Category", y = "Quantity", color = "Location", ba
 fig.update_layout(xaxis_title="", yaxis_title="", paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)')
 fig.show()
 ```
-![alt text](/img/quantity_by_cat&loc.png "Bar Plot")
+![alt text](/img/quantity_bycate.png "Bar Plot")
 
 A lot of the vip revenue is coming from apparel and notebooks & journals categories. Bulky orders are coming mainly from Chicago and California. Interestingly, this group of customers do not buy Nest products.
 
