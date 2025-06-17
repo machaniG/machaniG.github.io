@@ -214,17 +214,15 @@ I finally wanted to understand how our target audience interact with our ad cont
 
 ![alt text](/img/social_shares.png "pie chart")
 
-# Machine Learning 
-
-## Predicting Conversion
+# Machine Learning: Predicting Conversion
 
 After analysing the key KPIs, I decided to use machine learning approach to predict customer conversion. I used Random Forest Regression from scikit-learn and XGBRegressor from XGBoost libraries. I trained the two models, compared metrics and found that:
-- RF catches almost all converters (recall = 1.0%) but makes more false positive predictions.
-- XGB makes fewer false positive predictions, so its precision is higher (92%), but misses more actual converters (recall = 99%).
+- Random Forest catches almost all converters (recall = 1.0%) but makes more false positive predictions.
+- XGBoost makes fewer false positive predictions, so its precision is higher (92%), but misses more actual converters (recall = 99%).
 
 So Which Is Better?
 
-- As a marketing team, if we are trying to target converters precisely, and the campaign is costly, then should go with **XGBoost** becuase **fewer wrong people get targeted**. The Precision and F1 scores are better.
+- As a marketing team, if we are trying to target converters precisely, and the campaign is costly, then we should go with **XGBoost** becuase **fewer wrong people get targeted**. The Precision and F1 scores are better.
 
 - However, when we care more about not missing any real converters and we want to do a broad retargeting, then we should go with **Random Forest** becuase it has the best recall, but it is riskier in terms of wasted ad spend. There are **more False Positives**.
 
@@ -343,4 +341,76 @@ plt.show()
 ```
 ![alt text](/img/confusion_matrix.png "confusion matrix")
 
-Since we have a good percentage of users who completed the desired action of making a purchase. We cannot calculate ROI because we do not have access to the revenue generated from this marketing
+## Top Drivers of Conversion 
+
+I extracted the top predictors the model used to determine whether a customer converts using **feature importances_**. I visualized the top 10 drivers of conversion to inform where marketing team should focus their efforts. 
+```ruby
+# Fit preprocessing separately for feature names
+X_preprocessed = preprocessor.fit_transform(X_train)
+xgb_model = xgb.XGBClassifier(use_label_encoder=False, eval_metric='logloss')
+xgb_model.fit(X_preprocessed, y_train)
+
+# Get feature names
+encoded_feature_names = preprocessor.named_transformers_["cat"].get_feature_names_out(cat_cols)
+all_feature_names = list(encoded_feature_names) + num_cols
+
+importances = xgb_model.feature_importances_
+
+# Map to names
+feat_imp = pd.DataFrame({
+    "Feature": all_feature_names,
+    "Importance": importances
+}).sort_values(by="Importance", ascending=False)
+
+# Plot
+plt.figure(figsize=(8, 4))
+ax = sns.barplot(data=feat_imp.head(10), x="Importance", y="Feature", palette="viridis")
+for location in ['top', 'right', 'left', 'bottom']:
+    ax.spines[location].set_visible(False)
+ax.tick_params(bottom=False)
+ax.tick_params(left=False)
+plt.ylabel("")
+plt.title("Top 10 Feature Importances")
+plt.tight_layout()
+plt.savefig("important_features.png")
+plt.show()
+```
+![alt text](/img/important_features.png "horizontal bars")
+
+I deduced that;
+
+| Rank | Feature                           | Business Insight                                                                                          |
+| ---- | --------------------------------- | --------------------------------------------------------------------------------------------------------- |
+| 1    | **PreviousPurchases**             | Returning customers are more likely to convert. Loyalty matters, therefore, consider retention campaigns. |
+| 2    | **Age**                           | Certain age groups are more likely to convert. Segment targeting could improve results.                   |
+| 3    | **CampaignType\_Retention**       | Retention campaigns are effective. We may get strong ROI from targeting existing users.                   |
+| 4    | **CampaignChannel\_Email**        | Email campaigns are highly predictive so email strategy is a powerful lever.                              |
+| 5    | **CampaignType\_Conversion**      | Conversion campaigns are likely driving actual purchases compared to awareness only.                      |
+| 6    | **CampaignChannel\_PPC**          | Paid search has significant impact.                                                                       |
+| 7    | **CampaignType\_Awareness**       | Even awareness campaigns play a role in conversion possibly as one of the top-funnel influencers.         |
+| 8    | **CampaignChannel\_Social Media** | Social media plays a meaningful role, likely influencing early engagement.                                |
+| 9    | **Income**                        | Higher income may correlate with conversion; consider tailoring offers.                                   |
+| 10   | **CampaignChannel\_Referral**     | Referrals can bring in high-intent users. Strengthen referral programs.                                   |
+
+
+## **Recommendations**
+
+1. Double Down on What Works e.g.,
+   - Prioritize email, retention, and conversion campaigns
+   - Ensure PPC and referral traffic are well-optimized
+     
+2. Segment Strategically
+   - Age and income influence behavior. Therefore, tailor content and offers accordingly
+
+3. Test Combinations
+   - Combine top channels/types (e.g., Email + Retention) to test synergy
+
+4. Investigate Weak Channels
+   - Examine features with low importance to understand whether they are wasteful or poorly used.
+     
+5. Use domain knowledge and A/B testing to validate strategies.
+
+
+
+
+
