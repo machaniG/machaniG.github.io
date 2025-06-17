@@ -403,12 +403,12 @@ I deduced that;
    - Age and income influence behavior. Therefore, tailor content and offers accordingly
 
 3. Test Combinations
-   - Combine top channels/types (e.g., Email + Retention) to test synergy
+   - Combine top channels or campaign types (e.g., Email + Retention) to test synergy
 
 4. Investigate Weak Channels
    - Examine features with low importance to understand whether they are wasteful or poorly used.
      
-5. Use domain knowledge and A/B testing to validate strategies.
+5. Use domain knowledge and AB testing to validate strategies.
 
 
 
