@@ -37,6 +37,8 @@ database = 'marketing'
 engine = create_engine(f'postgresql+psycopg2://{username}:{password}@{host}:{port}/{database}')# Write DataFrame to database
 df.to_sql('digital_marketing', engine, index=False, if_exists='replace')  
 ```
+# KPI
+
 ## Customer Funnel
 
 I started by investigating the customer journey from seeing the ad through conversion for new customers only. I visualized the customer journey using a funnel.
@@ -68,8 +70,10 @@ counts = [
     df4['converted'][0]
 ]
 #plot the funnel
-fig = go.Figure(go.Funnel(y=stages, x=counts, textinfo="value+percent initial", marker=dict(color="#a9ba9d"), textfont={"size": 16}))
-fig.update_layout(title="New Customers Funnel", width=600, height=400, font=dict(size=16, family="Arial"), margin=dict(t=80, l=50, r=50, b=50))
+fig = go.Figure(go.Funnel(y=stages, x=counts, textinfo="value+percent initial",
+                            marker=dict(color="#a9ba9d"), textfont={"size": 16}))
+fig.update_layout(title="New Customers Funnel", width=600, height=400, font=dict(size=16, family="Arial"),
+                     margin=dict(t=80, l=50, r=50, b=50))
 fig.show()
 ```
 ![alt text](/img/new_customerfunnel.png "funnel")
@@ -104,6 +108,8 @@ fig.show()
 
 I found that the drop-off point is at the conversion stage. I followed this up by comparing the click through rate (CTR) with conversion rate. 
 
+## Click Through Rate and Conversion Rate
+
 I visualized CTR side by side with the conversion rate and noticed that the CTR is consistently higher than the conversion rate across all advertising channels; meaning the ads are attracting clicks, but a small percentage of customers are not completing the desired action. This implies that the ad copy and targeting might be effective in grabbing attention, but the offer might not be compelling enough to drive conversions for this group of customers. 
 
 ```ruby
@@ -137,7 +143,7 @@ plt.show()
 ```
 ![alt text](/img/ctr_conversionrate.png "ctr-cr bar plot")
 
-**Marketing Cost-Effectiveness**
+## Marketing Cost-Effectiveness
 
 Next I wanted to understand how efficient was the advertising so I calculated and visualized the cost per click (CPC) by advertising channel. 
 
@@ -171,7 +177,7 @@ I noticed that we paid more each time an ad delivered through referrals was clic
 
 The cost per click is generally high, but **how much does it cost to actually acquire a new customer?**
 
-###  Customer Acquisition Cost (CAC) 
+##  Customer Acquisition Cost (CAC) 
 CAC is a vital digital advertising performance metrics it provides insights into the efficiency and sustainability of marketing and sales strategies. I calculated CAC vs customer volume by Campaign Type.
 ```ruby
 cac_df = run_query("""
@@ -194,12 +200,147 @@ fig.show()
 ```
 ![alt text](/img/cac.png "bubble chart")
 
-After performing more analysis, I did research and found that Mailchip suggests that 10 AM is the most optimal time to send out newsletters/emails to subscribers. I used that as  my recommendation to The Column.
+I found that campaigns aimed at customer conversion are cheap and effective because of low CAC and more customers are acquired, making them the best type. Awarenes campaigns on the other hand have high CAC and even though we are acquiring many customers with this type of campaigns, they are expensive! 
 
-![alt text](/img/posts/Opens_Analysis.jpg "Opens Analysis")
+## Total Ad Spend
 
-![alt text](/img/posts/Clicks_Analysis.jpg "Clicks Analysis")
+Understanding total ad spend helps a business to allocate resources effectively across different campaigns and channels. After analyzing total ad spend by campaign type and channel, I found that, although conversion campaigns were the cheapest and effective in terms of customer acquisition costs, we spent more money on conversion campaigns in total and less dollars on retention ones. Social media marketing again is the leading in terms of cost-efficiency. Retention campaigns run through social media might be more efficient. 
 
-![alt text](/img/posts/Lifetime_Column.jpg "Lifetime Performance")
+![alt text](/img/ad_spend.png "ad spend")
+
+## Social Media Engagement
+
+I finally wanted to understand how our target audience interact with our ad content. This metric is crucial for shaping content strategies and understanding what drives interaction. I visualized social shares by campaign type using a pie chart. I found that conversion campaigns have high engagement, meaning that these posts resonate well with the audience, encouraging more visibility and reach through platform algorithms. 
+
+![alt text](/img/social_shares.png "pie chart")
+
+# Machine Learning 
+
+## Predicting Conversion
+
+After analysing the key KPIs, I decided to use machine learning approach to predict customer conversion. I used Random Forest Regression from scikit-learn and XGBRegressor from XGBoost libraries. I trained the two models, compared metrics and found that:
+- RF catches almost all converters (recall = 1.0%) but makes more false positive predictions.
+- XGB makes fewer false positive predictions, so its precision is higher (92%), but misses more actual converters (recall = 99%).
+
+So Which Is Better?
+
+- As a marketing team, if we are trying to target converters precisely, and the campaign is costly, then should go with **XGBoost** becuase **fewer wrong people get targeted**. The Precision and F1 scores are better.
+
+- However, when we care more about not missing any real converters and we want to do a broad retargeting, then we should go with **Random Forest** becuase it has the best recall, but it is riskier in terms of wasted ad spend. There are **more False Positives**.
+
+```ruby
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import OneHotEncoder
+from sklearn.compose import ColumnTransformer
+from sklearn.pipeline import Pipeline
+from sklearn.impute import SimpleImputer
+from sklearn.ensemble import RandomForestClassifier
+import xgboost as xgb
+from sklearn.metrics import classification_report, confusion_matrix
+from sklearn.preprocessing import StandardScaler
+from sklearn.metrics import ConfusionMatrixDisplay
+```
+## Preprocessing pipeline
+```ruby
+X = df.drop(columns=["Conversion", "CustomerID"], axis = 1)
+y = df["Conversion"]
+
+# Categorical columns
+cat_cols = ["Gender", "CampaignChannel", "CampaignType"]
+num_cols = [col for col in X.columns if col not in cat_cols]
+
+# Preprocessor
+preprocessor = ColumnTransformer([
+    ("num", Pipeline([
+        ("imputer", SimpleImputer(strategy="mean")),
+        ("scaler", StandardScaler())
+    ]), num_cols),
+    
+    ("cat", Pipeline([
+        ("imputer", SimpleImputer(strategy="most_frequent")),
+        ("onehot", OneHotEncoder(handle_unknown="ignore"))
+    ]), cat_cols)
+])
+```
+## Train Random Forest Model
+```ruby
+pipeline_rf = Pipeline([
+    ("preprocess", preprocessor),
+    ("model", RandomForestClassifier(random_state=42))
+])
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, stratify=y, test_size=0.2, random_state=42)
+
+pipeline_rf.fit(X_train, y_train)
+y_pred_rf = pipeline_rf.predict(X_test)
+
+print("Random Forest Results:")
+print(classification_report(y_test, y_pred_rf))
+print(confusion_matrix(y_test, y_pred_rf))
+```
+## Train Model: XGBoost
+```ruby
+pipeline_xgb = Pipeline([
+    ("preprocess", preprocessor),
+    ("model", xgb.XGBClassifier(use_label_encoder=False, eval_metric='logloss', random_state=42))
+])
+
+pipeline_xgb.fit(X_train, y_train)
+y_pred_xgb = pipeline_xgb.predict(X_test)
+
+print("XGBoost Results:")
+print(classification_report(y_test, y_pred_xgb))
+print(confusion_matrix(y_test, y_pred_xgb))
+```
+
+## Create a Comparison Plot of Precision, Recall, and F1 Score between models
+```ruby
+# metrics data
+metrics_data = {
+    "Model": ["Random Forest", "XGBoost"],
+    "Precision": [0.89,  0.92],
+    "Recall": [1.0,  0.99],
+    "F1 Score": [0.94, 0.95]
+}
+
+df_metrics = pd.DataFrame(metrics_data)
+
+#Melt the DataFrame into long format for seaborn
+df_melted = df_metrics.melt(id_vars="Model", value_vars=["Precision", "Recall", "F1 Score"], var_name="Metric", value_name="Score")
+
+# Plot using seaborn
+sns.barplot(data=df_melted, x="Metric", y="Score", hue="Model", palette="viridis")
+plt.title("Model Comparison: Precision, Recall, and F1 Score", fontsize=14)
+plt.ylabel("Score", fontsize=12)
+plt.xlabel("Evaluation Metric", fontsize=12)
+plt.ylim(0.85, 1.02)
+plt.legend(title="Model")
+plt.tight_layout()
+plt.savefig("model_comparison_metrics.png", dpi=300)
+plt.show()
+```
+![alt text](/img/model_comparison_metrics.png "model metrics")
+
+## Confusion Matrix
+```ruby
+#plot Random Forest confusion matrix
+cm = confusion_matrix(y_test, y_pred_rf)
+
+plt.figure(figsize=(6, 5))
+sns.heatmap(cm, annot=True, fmt="d", cmap="Blues", xticklabels=["Not Converted", "Converted"], yticklabels=["Not Converted", "Converted"])
+plt.xlabel("Predicted")
+plt.ylabel("Actual")
+plt.title("Confusion Matrix")
+plt.tight_layout()
+plt.savefig("rf_confusionmatrix.png", dpi=300)
+plt.show()
+
+#plot XGBoost confusion matrix
+disp = ConfusionMatrixDisplay.from_predictions(y_test, y_pred_xgb, cmap="Blues")
+plt.title("Confusion Matrix")
+plt.savefig("xgb_confusionmatrix.png", dpi=300, bbox_inches="tight")
+plt.show()
+```
+![alt text](/img/confusion_matrix.png "confusion matrix")
 
 Since we have a good percentage of users who completed the desired action of making a purchase. We cannot calculate ROI because we do not have access to the revenue generated from this marketing
