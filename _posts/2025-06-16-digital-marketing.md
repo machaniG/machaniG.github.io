@@ -204,14 +204,46 @@ I found that campaigns aimed at customer conversion are cheap and effective beca
 
 ## Total Ad Spend
 
-Understanding total ad spend helps a business to allocate resources effectively across different campaigns and channels. After analyzing total ad spend by campaign type and channel, I found that, although conversion campaigns were the cheapest and effective in terms of customer acquisition costs, we spent more money on conversion campaigns in total and less dollars on retention ones. Social media marketing again is the leading in terms of cost-efficiency. Retention campaigns run through social media might be more efficient. 
+Understanding total ad spend helps a business to allocate resources effectively across different campaigns and channels. After analyzing total ad spend by campaign type and channel, I found that, although conversion campaigns were the cheapest and effective in terms of customer acquisition costs, we spent more money on conversion campaigns in total and less dollars on retention ones. Social media marketing again is the leading in terms of cost-efficiency. Retention campaigns run through social media might be more efficient.
+```ruby
+df = run_query("""
+    SELECT DISTINCT campaigntype AS "Campaign name",
+    campaignchannel AS "Campaign channel",
+    SUM(adspend) AS "Ad Spend"
+    FROM digital_marketing
+    GROUP BY 1, 2
+    ORDER BY 3 DESC;
+""")
 
+fig = px.bar(df, x = "Campaign channel", y = "Ad Spend", color='Campaign channel', text = 'Ad Spend', title='Ad Spend in Dollars by Campaign Channel',
+            color_discrete_sequence=["#cb6817", "#d2a990", "#482878", "#31688e", "#717171"])
+fig.update_traces(texttemplate='$%{text:.2f}', textposition='outside')
+fig.update_layout(yaxis_title='Ad Spend in Dollars', xaxis_title='Campaign Channel', height=500, width = 700)
+fig.show()
+```
 ![alt text](/img/ad_spend.png "ad spend")
 
 ## Social Media Engagement
 
 I finally wanted to understand how our target audience interact with our ad content. This metric is crucial for shaping content strategies and understanding what drives interaction. I visualized social shares by campaign type using a pie chart. I found that conversion campaigns have high engagement, meaning that these posts resonate well with the audience, encouraging more visibility and reach through platform algorithms. 
+```ruby
+df_social = run_query("""
+    SELECT 
+        CampaignType,
+        SUM(SocialShares) AS total_social_shares
+    FROM digital_marketing
+    GROUP BY CampaignType
+    ORDER BY total_social_shares DESC;
+""")
 
+explode_index = df_social['total_social_shares'].idxmax()
+pull = [0.1 if i == explode_index else 0 for i in range(len(df_social))]
+fig = px.pie(df_social, names='campaigntype', values='total_social_shares', title='Social Media Engagement by Campaign Type', hole=0.3,
+            color_discrete_sequence=["#909bc7", "#6ece58", "#c59dc1", "#8dbeca"])  
+fig.update_traces(pull=pull, textinfo='label+percent+value')
+fig.update_layout(height=500, width = 500)
+fig.show()
+```
 ![alt text](/img/social_shares.png "pie chart")
 
 # Machine Learning: Predicting Conversion
