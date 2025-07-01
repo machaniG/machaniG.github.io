@@ -5,15 +5,20 @@ image: "/posts/sentiments.jpeg"
 tags: [Recommendation System, TensorFlow]
 ---
 
-I had the pleasure of analyzing customer sentiments and building personalized recommendation system by combining collaborative filtering and content-based filtering approaches to offer more relevant and varied suggestions, leading to a better user experience. Incorporating user-item interactions and content-based filtering, a company can help its customer to easily find items that align with their interests.  
+I analyzed customer sentiments and built a personalized recommendation system that integrates sentiment analysis of customer reviews into the recommendation logic to enhance personalization and recommendation quality, leading to a better user experience. This system combines:by combining 
+- Collaborative filtering (via Surprise's SVD) to capture user–item interaction patterns
+- Content-Based Filtering using product metadata (e.g., category, brand, etc.); and
+- Custom sentiment classification with a deep learning model (LSTM with Bidirectional layers) trained on raw review text.
 
-I built a hybrid recommendation system that integrates sentiment analysis of customer reviews to enhance personalization and recommendation quality. This system combines:
+By integrating sentiment analysis into a hybrid recommender system, I demonstrated how NLP can be leveraged beyond classification to directly enhance recommendation quality and drive smarter, emotionally-informed personalization.
 
-Collaborative Filtering (via Surprise's SVD) to capture user–item interaction patterns.
+**Business Impact**
 
-Content-Based Filtering using product metadata (e.g., category, brand, etc.).
-
-Custom Sentiment Classification with a deep learning model (LSTM with Bidirectional layers) trained on raw review text.
+By incorporating real-time sentiment insights into the recommendation logic, the system:
+- Avoids recommending poorly reviewed products even if they are frequently bought.
+- Improves customer trust and engagement by aligning suggestions with emotional satisfaction of past customers, therefore users are more likely to trust the suggestions they receive.
+- Encourages high-quality purchases, likely increasing conversion rates and long-term customer loyalty.
+- Differentiates user experience, giving the business a competitive edge in product personalization.
 
 ---
 # **Sentiment Prediction from Customer Reviews**
@@ -156,9 +161,10 @@ plt.show()
 ```
 ![alt text](/img/cm_cr_sentiment.png "confusion matrix")
 
-Overall Accuracy: 99% on a test set of ~186,000 samples
-
-Confusion Matrix showed excellent class separation, especially for Neutral and Positive classes. 
+The sentiment classification model achieved:
+- Overall Accuracy: 99% on a test set of ~186,000 samples
+- F1-Score: 0.99 for Positive and Neutral classes; 0.90 for Negative.
+- Confusion Matrix showed excellent class separation, especially for Neutral and Positive classes. 
 
 This high performance enabled the reliable transformation of textual reviews into quantitative sentiment signals for use in recommendations.
 
@@ -343,5 +349,5 @@ visualize_recommendations(user_id, top_n=3)
 ![alt text](/img/CUST00034.png "bar Plot")
 ![alt text](/img/CUST09858.png "bar Plot")
 
-Rather than relying on static sentiment labels, I used a deep learning approach to generate dynamic sentiment scores based on text tone and content. These scores were then used to influence product recommendations.
+Two users with similar purchase histories received different top recommendations due to differing sentiment trends in the reviews of commonly bought items. Rather than relying on static sentiment labels, I used a deep learning approach to generate dynamic sentiment scores based on text tone and content. These scores were then used to influence product recommendations. By integrating sentiment analysis into a hybrid recommender, I have shown how to translate customer feedback into data-driven personalization strategies that directly support business KPIs like retention, satisfaction, and revenue.
 
