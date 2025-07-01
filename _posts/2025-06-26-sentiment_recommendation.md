@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Sentiment-Enhanced Hybrid Recommendation System
-image: "/img/posts/sentiments-image.png"
+image: "/img/posts/sentiments.jpeg"
 tags: [Recommendation System, TensorFlow]
 ---
 
