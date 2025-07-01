@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Sentiment-Enhanced Hybrid Recommendation System
-image: "/posts/marketing_image.jpeg"
+image: "/posts/sentiments-image.png"
 tags: [Recommendation System, TensorFlow]
 ---
 
@@ -64,6 +64,8 @@ plt.axis('equal')  # Ensures the pie is drawn as a circle.
 plt.savefig("sentiment_dist.png")
 plt.show()
 ```
+![alt text](/img/sentiment_dist.png "pie chart")
+
 ## Preprocessing
 
 I label encoded the target "sentiments", mapped the review text to integer sequences, and converted inputs to numpy.
@@ -150,6 +152,8 @@ plt.ylabel('True')
 plt.title('Confusion Matrix')
 plt.show()
 ```
+![alt text](/img/cm_cr_sentiment.png "confusion matrix")
+
 Overall Accuracy: 99% on a test set of ~186,000 samples
 
 Confusion Matrix showed excellent class separation, especially for Neutral and Positive classes. 
@@ -331,41 +335,8 @@ visualize_recommendations(user_id, top_n=3)
 user_id = 'CUST00034'
 visualize_recommendations(user_id, top_n=3)
 ```
+![alt text](/img/CUST00034.png "bar Plot")
+![alt text](/img/CUST09858.png "bar Plot")
+
 Rather than relying on static sentiment labels, I used a deep learning approach to generate dynamic sentiment scores based on text tone and content. These scores were then used to influence product recommendations.
-
-
-
-First I wanted to investigate the popular times of day that subscribers open the newsletter, I visualized a strip plot of the most common hours the newsletter is actually opened by subscribers
-
-```ruby
-ax = sns.stripplot(x='Hour', y='Opens', data=summary)
-```
-![alt text](/img/posts/Strip_plot.png "Strip Plot")
-
----
-I notice that most of the time the newsletters are opened between 7-9, but the data corresponds to the time the newsletters are actually sent. I visualize a scatterplot of sends (subscriber count) and open and notice a linear relationship. This prompted me to perform a linear regression and visualize a basic model.
-
-```ruby
-y = summary['Opens']
-x = summary['Sends']
-np.polyfit(x,y, deg =1)
-
-potential_Send = np.linspace(0,5000,100)
-potential_Opens = 0.44547871*potential_Send + 183.80574801
-
-sns.scatterplot(x = 'Sends', y = 'Opens', data = summary)
-plt.plot(potential_Send,potential_Opens, color = 'red')
-plt.show()
-```
-We cannot calculate ROI because we do not have access to the revenue generated from this marketing
-
-![alt text](/img/posts/Opens_Regression.png "Opens Linear Regression")
----
-After performing more analysis, I did research and found that Mailchip suggests that 10 AM is the most optimal time to send out newsletters/emails to subscribers. I used that as  my recommendation to The Column.
-
-![alt text](/img/posts/Opens_Analysis.jpg "Opens Analysis")
-
-![alt text](/img/posts/Clicks_Analysis.jpg "Clicks Analysis")
-
-![alt text](/img/posts/Lifetime_Column.jpg "Lifetime Performance")
 
