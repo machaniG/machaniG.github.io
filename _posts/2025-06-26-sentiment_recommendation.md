@@ -117,9 +117,11 @@ I then set up callbacks for the training to monitor validation loss and stop aft
 
 ```ruby
 # Setup Callbacks
-callback = EarlyStopping(monitor = 'val_loss', patience = 3, mode = 'min', restore_best_weights = True)
+callback = EarlyStopping(monitor = 'val_loss', patience = 3,
+                         mode = 'min', restore_best_weights = True)
 
-checkpoint = ModelCheckpoint('best_model.keras', monitor ='val_loss', save_best_only = True, mode = 'min',            verbose = 1)
+checkpoint = ModelCheckpoint('best_model.keras', monitor ='val_loss', save_best_only = True,
+                             mode = 'min', verbose = 1)
 ```
 
 Lastly I trained and evaluated the model using classification report, confusion matrix and validation accuracy.
@@ -162,7 +164,7 @@ This high performance enabled the reliable transformation of textual reviews int
 
 # **Sentiment-Enhanced Hybrid Recommender's System**
 
-I integrated sentiment analysis into a hybrid recommender system, directly enhancing recommendation quality and driving smarter, emotionally-informed personalization.
+I integrated the sentiments into a hybrid recommender system, directly enhancing recommendation quality and driving smarter, emotionally-informed personalization.
 
 After training the sentiment classifier, I mapped the predicted sentiments to normalized sentiment scores (0–1) and aggregated them per product. I then used these scores as a third signal in the hybrid recommender alongside collaborative and content scores.
 
@@ -209,7 +211,8 @@ df = df[['Customer_ID', 'product_id', 'rating', 'review', 'Category', 'Type', 'B
 I first normalized the predicted sentiments and boosted ratings by sentiment with a weight of 0.3, and then trained a collaborative filtering model to capture user-product interaction patterns. I finally defined a function to predict how a given user is likely to rate a given product. 
 
 ```ruby
-df['sentiment_norm'] = (df['predicted_sentiment'] - df['predicted_sentiment'].min()) / (df['predicted_sentiment'].max() - df['predicted_sentiment'].min())
+df['sentiment_norm'] = (df['predicted_sentiment'] - df['predicted_sentiment'].min()) /
+                           (df['predicted_sentiment'].max() - df['predicted_sentiment'].min())
 
 df['adjusted_rating'] = df['rating'] * (0.7 + 0.3 * df['sentiment_norm'])
 ```
@@ -239,7 +242,8 @@ After combining product features into a single string, I used scikit-learn's Tfi
 
 ```ruby
 # Combine product features into a single string
-df['product_text'] = df['Category'].fillna('') + ' ' + df['Type'].fillna('') + ' ' + df['Brand'].fillna('') + ' ' + df['Product_name'].fillna('')
+df['product_text'] = df['Category'].fillna('') + ' ' + df['Type'].fillna('') + ' ' + df['Brand'].fillna('') +
+                     ' ' + df['Product_name'].fillna('')
 
 # TF-IDF vectorization
 tfidf = TfidfVectorizer(stop_words='english')
@@ -306,7 +310,8 @@ def recommend_products(user_id, top_n=5):
     top_products = scores[:top_n]
     
     # Return product details
-    return df[df['product_id'].isin([pid for pid, _ in top_products])][['product_id', 'Product_name', 'Brand', 'Category', 'Type']].drop_duplicates()
+    return df[df['product_id'].isin([pid for pid, _ in top_products])][['product_id',
+                                   'Product_name', 'Brand', 'Category', 'Type']].drop_duplicates()
 ```
 ```ruby
 def visualize_recommendations(user_id, top_n=5):
