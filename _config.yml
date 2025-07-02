@@ -23,7 +23,7 @@ avatar_image: /img/fridah_headshot.jpg
 #-------------------------------
 # Contact links
 linkedln: "https://www.linkedin.com/in/fmachani/#" # Add your linkedln handle
-github: "https://github.com/machaniG/#"  # Add your github handle
+github: "https://github.com/machaniG/"  # Add your github handle
 
 paginate: 6
 paginate_path: "/page/:num"
