@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Optimizing Marketing KPIs and Predicting Customer Conversion
-image: "/posts/marketing-image.png"
+image: "/posts/marketing.png"
 tags: [SQL, Machine Learning]
 ---
 
