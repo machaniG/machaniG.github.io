@@ -1,7 +1,7 @@
 ---
 layout: post
-title: Understanding Consumer Buying Habits and Segmentation  
-image: "/posts/ecommerce-image.png"
+title: Customer Segmentation and Behavior Analysis 
+image: "/posts/customers.png"
 tags: [Python, Power BI]
 ---
 
