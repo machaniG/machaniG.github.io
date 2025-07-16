@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Customer Segmentation and Behavior Analysis 
+title: Crimsonloop Customer Segmentation and Behavior Analysis
 image: "/posts/customers.png"
 tags: [Python, Power BI]
 ---
@@ -124,6 +124,7 @@ plt.show()
 ```
 ![alt text](/img/top1_percent.png "Histogram")
 ---
+
 I found that even in the top 1% spenders, there is still a long tail because 75 percent of the transactions are below the mean transaction value. The average transaction is $825 while the maximum transaction is about $8.5k. A result, I decided to introduce another threshold: the 99 percentile transactions to range from above 99% but below $1,000. I introduced a VIP group for the customers whose transaction value exceed $1k per transaction.
 
 ### Creating Customer Segments
