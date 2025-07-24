@@ -37,8 +37,6 @@ Key Metric Calculation: Deriving essential KPIs such as MoM growth rates, profit
 
 Visualization & Dashboard Design: Crafting intuitive and insightful visualizations that allowed for deep dives into product performance.
 
-Explore the interactive dashboards yourself on Tableau Public: (Links to interactive Tableau Public dashboards will be provided here)
-
 # Key Discoveries & Actionable Insights:
 
 Through rigorous analysis and interactive dashboards, I uncovered critical insights that directly informed business strategy:
@@ -81,4 +79,10 @@ This analysis ultimately enabled the client to move beyond guesswork, fostering 
 
 **Tools Used:** Tableau
 
+Explore the interactive dashboards yourself on Tableau Public: 
+(https://public.tableau.com/views/fashionfitexecutivesummary/FashionfitExecutiveSummary?:language=en-US&publish=yes&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link
 
+https://public.tableau.com/views/fashionfitexecutivesummary/ProductPerformanceDashboard?:language=en-US&publish=yes&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link
+
+https://public.tableau.com/views/fashionfitexecutivesummary/QuantitySoldDashboard?:language=en-US&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link
+)
