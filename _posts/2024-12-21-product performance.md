@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Fashionfit Product Performance Analysis
-image: "/img/posts/apparel_sales.jpeg"
+image: "/img/posts/product_image.JPG"
 tags: [Tableau, Dashboard]
 ---
 
@@ -49,7 +49,7 @@ Hoodies & Sweatshirts and Jackets consistently emerged as the top-performing pro
 
 As illustrated in the Executive Summary Dashboard below, observe the clear distribution of sales and profits by category and region.
 
-![alt text](/img/posts/apparel_dashboard.png "Summary")
+![alt text](/img/fashionfit_executive.png "Summary")
 
 **Dynamic Profit Leaders & Rising Stars:**
 
@@ -57,7 +57,7 @@ The landscape of top-performing products was dynamic, highlighting the need for 
 
 The Product Performance Dashboard below visually details these profit leaders and the growth trajectory of key items like "Frankie Sweatshirt."
 
-![alt text](/img/posts/apparel_dashboard.png "product performance")
+![alt text](/img/fashionfit_product.png "product performance")
 
 **Seasonal Fluctuations & Inventory Optimization:**
 
@@ -65,7 +65,7 @@ Overall quantity sold showed clear seasonal trends, peaking at an all-time high 
 
 This critical seasonal trend is clearly visualized in the Quantity Sold Dashboard below, showing fluctuations in units sold over time.
 
-![alt text](/img/posts/apparel_dashboard.png "Seasonal trends!")
+![alt text](/img/fashionfit_quantity.png "Seasonal trends!")
 
 # Business Impact:
 
