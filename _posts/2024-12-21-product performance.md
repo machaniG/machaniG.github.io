@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Fashionfit Product Performance Analysis
-image: "/img/posts/product_image.PNG"
+image: "/posts/product_image.PNG"
 tags: [Tableau, Dashboard]
 ---
 
