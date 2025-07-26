@@ -100,7 +100,7 @@ rfm_scaled = scaler.fit_transform(rfm_data[['Recency', 'Frequency', 'Monetary']]
 kmeans = KMeans(n_clusters=4, random_state=42, n_init=10) # n_init is set to 'auto' or explicit value in newer scikit-learn
 rfm_data['Cluster'] = kmeans.fit_predict(rfm_scaled)
 
-# The actual implementation involving exploring optimal K and in-depth cluster profiling can be found here [].
+# The actual implementation involving exploring optimal K and in-depth cluster profiling can be found here [![alt text](/notebooks/Customer segmentation & behavior analysis.ipynb)].
 ```
 
 ## 2. **Geographic & Gender Insights for VIPs:**
@@ -201,6 +201,6 @@ This section provides more technical details and serves as a gateway to the comp
 
 The project leveraged Python's extensive data science ecosystem. For data manipulation and analysis, **Pandas and NumPy** were used. **Matplotlib, Seaborn, and Plotly Express** facilitated detailed data visualization and exploration, leading to the insights presented above. The final holistic KPI comparison was developed in **Power BI.**
 
-For the full codebase, including all data preparation steps, detailed analytical scripts, and additional visualizations, please visit the dedicated GitHub repository: [Your GitHub Repo Link Here]
+For the full codebase, including all data preparation steps, detailed analytical scripts, and additional visualizations, please visit the dedicated GitHub repository: [(https://github.com/machaniG/machaniG.github.io/blob/master/notebooks/Customer%20segmentation%20%26%20behavior%20analysis.ipynb)]
 
 **Tools Used in Technical Implementation:** Python (Pandas, NumPy, Matplotlib, Seaborn, Plotly), Power BI, SQL
