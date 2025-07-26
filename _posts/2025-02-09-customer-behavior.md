@@ -202,6 +202,6 @@ This section provides more technical details and serves as a gateway to the comp
 
 The project leveraged Python's extensive data science ecosystem. For data manipulation and analysis, **Pandas and NumPy** were used. **Matplotlib, Seaborn, and Plotly Express** facilitated detailed data visualization and exploration, leading to the insights presented above. The final holistic KPI comparison was developed in **Power BI.**
 
-For the full codebase, including all data preparation steps, detailed analytical scripts, and additional visualizations, please visit the dedicated GitHub repository: [https://github.com/machaniG/machaniG.github.io/blob/master/notebooks/Customer%20segmentation%20%26%20behavior%20analysis.ipynb]
+For the full codebase, including all data preparation steps, detailed analytical scripts, and additional visualizations, please visit the dedicated GitHub repository: [([https://github.com/machaniG/machaniG.github.io/blob/master/notebooks/Customer%20segmentation%20%26%20behavior%20analysis.ipynb](https://github.com/machaniG/machaniG.github.io/blob/master/notebooks/Customer%20segmentation%20%26%20behavior%20analysis.ipynb))]
 
 **Tools Used in Technical Implementation:** Python (Pandas, NumPy, Matplotlib, Seaborn, Plotly), Power BI, SQL
