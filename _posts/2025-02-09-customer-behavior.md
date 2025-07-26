@@ -101,7 +101,7 @@ kmeans = KMeans(n_clusters=4, random_state=42, n_init=10) # n_init is set to 'au
 rfm_data['Cluster'] = kmeans.fit_predict(rfm_scaled)
 
 # The actual implementation involving exploring optimal K and in-depth cluster profiling can be found here
-# [(https://github.com/machaniG/machaniG.github.io/blob/master/notebooks/Customer%20segmentation%20%26%20behavior%20analysis.ipynb)].
+# [([https://github.com/machaniG/machaniG.github.io/blob/master/notebooks/Customer%20segmentation%20%26%20behavior%20analysis.ipynb](https://github.com/machaniG/machaniG.github.io/blob/master/notebooks/Customer%20segmentation%20%26%20behavior%20analysis.ipynb))].
 ```
 
 ## 2. **Geographic & Gender Insights for VIPs:**
