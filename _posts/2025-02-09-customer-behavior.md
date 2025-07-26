@@ -204,4 +204,4 @@ The project leveraged Python's extensive data science ecosystem. For data manipu
 
 For the full codebase, including all data preparation steps, detailed analytical scripts, and additional visualizations, please visit the dedicated GitHub repository: [([https://github.com/machaniG/machaniG.github.io/blob/master/notebooks/Customer%20segmentation%20%26%20behavior%20analysis.ipynb](https://github.com/machaniG/machaniG.github.io/blob/master/notebooks/Customer%20segmentation%20%26%20behavior%20analysis.ipynb))]
 
-**Tools Used in Technical Implementation:** Python (Pandas, NumPy, Matplotlib, Seaborn, Plotly), Power BI, SQL
+**Tools Used in Technical Implementation:** Python (Pandas, Scikit-Learn, NumPy, Matplotlib, Seaborn, Plotly), Power BI
