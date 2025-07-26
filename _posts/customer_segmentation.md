@@ -17,7 +17,7 @@ Crimsonloop needed a deeper understanding of its diverse customer base. Generic 
 
 I conducted a comprehensive customer segmentation and behavior analysis using Python (Pandas, NumPy, Matplotlib, Seaborn, Plotly) for data manipulation, statistical analysis, and initial visualization, culminating in an interactive Power BI dashboard for holistic KPI comparison. My process involved:
 
-- **Integrated and meticulously preprocessed five disparate datasets**, ensuring data quality and readiness for advanced analysis.
+- **Integrated and preprocessed five different datasets**, ensuring data quality and readiness for advanced analysis.
 - **Conducted in-depth sales behavior analysis**, revealing significant data skewness that highlighted high-value transaction opportunities.
 - **Implemented both rule-based and machine learning (K-means) customer segmentation**, defining distinct customer tiers to identify and analyze high-value segments.
 - **Performed comprehensive behavioral and temporal trend analysis of VIP customers**, uncovering critical demographic, product, and purchasing patterns.
@@ -53,7 +53,7 @@ This segmentation underscored the importance of focusing on high-value customers
 # Define segmentation cutoffs based on quantiles for data-driven thresholds
 cutoff_95 = df["net_sales"].quantile(0.95)
 cutoff_99 = df["net_sales"].quantile(0.99)
-vip_threshold >= 1000 # Specific business-defined threshold for VIP
+vip_threshold > 1000 # Specific business-defined threshold for VIP
 
 # Assign segments based on calculated thresholds, ensuring exclusivity
 df.loc[df["net_sales"] > vip_threshold, "segment"] = "VIP Tier"
@@ -68,9 +68,9 @@ To validate and potentially discover deeper, data-driven segments, I also applie
 
 *A comparison of the K-means clusters against the rule-based segments revealed a nuanced overlap, validating existing business rules while also highlighting areas for deeper understanding. Specifically, **Cluster 3** showed a strong alignment with the **VIP Tier**, reinforcing its distinctiveness. The **Loyalty, Premium, and Regular Tiers** were primarily distributed across **Cluster 0 and Cluster 2,** suggesting a natural grouping of mid-to-low value customers that could be explored for more granular targeting. This dual approach ensured robust, actionable segmentation.*
 
-*The clustering results below show a visualized scatter plot of RFM features colored by cluster:*
+*The clustering results below show a visualized scatter plot of RFM features colored by cluster and using segments as markers:*
 
-![alt text](/img/sales_distribution.png "scatter Plot")
+![alt text](/img/Kmeans_clusters.png "scatter Plot")
 
 *Below is the Python code for applying K-means clustering, starting with the derivation of RFM features from the transaction data:*
 
@@ -103,15 +103,14 @@ rfm_data['Cluster'] = kmeans.fit_predict(rfm_scaled)
 # The actual implementation involving exploring optimal K and in-depth cluster profiling can be found here [].
 ```
 
-2. **Geographic & Gender Insights for VIPs:**
+## 2. **Geographic & Gender Insights for VIPs:**
    
 Analysis of VIP sales by location and gender revealed that **Chicago and California** were the leading regions for high-value transactions, with **female customers** generally contributing more to VIP sales. Interestingly, Chicago showed a higher number of male VIP customers compared to other locations.
 
 *The **VIP Sales by Location and Gender** charts below provide detailed demographic insights, revealing leading regions for high-value transactions and gender distribution.*
 
-![alt text](/img/vipsales_loc_gender.png "Stacked Bars")
-
-![alt text](/img/customers_location.png "Column Plot")
+![alt text](/img/vip_sales_location_and_gender.png "Stacked Bars")
+![alt text](/img/vip_customers_loc_gender.png "Column Plot")
 
 *The summary of VIP sales by location and gender was generated using Pandas for aggregation:*
 
@@ -129,17 +128,17 @@ gender_summary = vip.groupby(["Location", "Gender"])["CustomerID"].nunique().res
 gender_summary.rename(columns={"CustomerID": "Unique_Customers"}, inplace=True)
 ```
 
-3. **Product Preferences of High-Value Buyers:**
+## 3. **Product Preferences of High-Value Buyers:**
    
 A significant portion of VIP revenue was derived from **Apparel** and **Notebooks & Journals** categories. Conversely, **Nest products** showed negligible sales among VIP customers. Bulky orders predominantly originated from Chicago and California, aligning with their high transaction volumes.
 
 *To understand product preferences, the charts below illustrate the **product categories driving VIP sales** and the **quantity sold to VIPs by category and location.***
 
-![alt text](/img/vip_sales_bycategory.png "Horizontal Bars")
+![alt text](/img/vipsales_bycategory.png "Horizontal Bars") 
+![alt text](/img/vip_quantiy_bycategory.png "Bar Plot")
 
-![alt text](/img/quantity_bycate.png "Bar Plot")
 
-4. **Critical Temporal Trends:**
+## 4. **Critical Temporal Trends:**
    
 Analysis of daily and weekly transaction patterns revealed significant anomalies:
 
@@ -149,9 +148,9 @@ Analysis of daily and weekly transaction patterns revealed significant anomalies
 
 *These critical **temporal patterns**, including monthly spikes and daily variations, are clearly visualized in the **VIP Sales and Transactions Over Time ** and **VIP Transactions by Day of the Week** charts below.*
 
-![alt text](/img/vipsales_overtime.png "Line Graph")
-![alt text](/img/vip_transactions.png "Line Graph")
-![alt text](/img/transa_weekdays.png "Line Graph")
+![alt text](/img/vip_sales_overtime.png "Line Graph")
+![alt text](/img/vip_transactions_overtime.png "Line Graph")
+![alt text](/img/transactions_by_dayofweek.png "Line Graph")
 
 *Temporal trends were identified by grouping VIP transactions by date and day of the week:*
 
@@ -181,7 +180,9 @@ This dashboard provided a centralized view for ongoing strategic monitoring.
 
 *Finally, the **Business Performance and Segment Insights Dashboard** below offers a comprehensive, interactive overview of key KPIs across all customer segments, serving as a centralized strategic monitoring tool.*
 
+
 ![alt text](/img/ecommerce_dashboard.png "Dashboard")
+
 
 # Business Impact:
 
