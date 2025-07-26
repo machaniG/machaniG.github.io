@@ -15,7 +15,7 @@ Crimsonloop needed a deeper understanding of its diverse customer base. Generic 
 
 ## My Approach
 
-I conducted a comprehensive customer segmentation and behavior analysis using Python (Pandas, scikit-learn, NumPy, Matplotlib, Seaborn, Plotly) for data manipulation, statistical analysis, and initial visualization, culminating in an interactive Power BI dashboard for holistic KPI comparison. My process involved:
+I conducted a comprehensive customer segmentation and behavior analysis using Python (Pandas, Scikit-Learn, NumPy, Matplotlib, Seaborn, Plotly) for data manipulation, statistical analysis, and initial visualization, culminating in an interactive Power BI dashboard for holistic KPI comparison. My process involved:
 
 - **Integrated and preprocessed five different datasets**, ensuring data quality and readiness for advanced analysis.
 - **Conducted in-depth sales behavior analysis**, revealing significant data skewness that highlighted high-value transaction opportunities.
