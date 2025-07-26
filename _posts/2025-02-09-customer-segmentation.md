@@ -46,7 +46,7 @@ This segmentation underscored the importance of focusing on high-value customers
 ![alt text](/img/sales_distribution.png "Box Plot")
 
 ![alt text](/img/top1_percent.png "Histogram")
-![alt text](/img/newplot(1).png "Histogram")
+
 *The core logic for defining these rule-based customer tiers in Python is provided below:*
 
 ```ruby
