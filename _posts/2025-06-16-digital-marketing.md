@@ -239,7 +239,7 @@ from sklearn.metrics import classification_report, confusion_matrix
 from sklearn.preprocessing import StandardScaler
 from sklearn.metrics import ConfusionMatrixDisplay
 ```
-## Preprocessing pipeline
+### Preprocessing pipeline
 ```ruby
 X = df.drop(columns=["Conversion", "CustomerID"], axis = 1)
 y = df["Conversion"]
@@ -262,7 +262,7 @@ preprocessor = ColumnTransformer([
 ])
 ```
 
-## Train Random Forest Model
+### Train Random Forest Model
 ```ruby
 pipeline_rf = Pipeline([
     ("preprocess", preprocessor),
@@ -277,7 +277,7 @@ print(classification_report(y_test, y_pred_rf))
 print(confusion_matrix(y_test, y_pred_rf))
 ```
 
-## Train Model: XGBoost
+### Train Model: XGBoost
 ```ruby
 pipeline_xgb = Pipeline([
     ("preprocess", preprocessor),
