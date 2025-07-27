@@ -357,5 +357,5 @@ Based on the KPI analysis and predictive modeling, I provided the following stra
 - **Implement Predictive Modeling for Budget Allocation:** Use the XGBoost model to inform budget allocation for high-cost campaigns, ensuring resources are spent with high precision on the most likely converters.
 
 
-*For technical implementation of this analysis, please check it here:* [([https://github.com/machaniG/projects_done/blob/main/Velteva%20marketing%20analytics_SQL.ipynb](https://github.com/machaniG/projects_done/blob/main/Velteva%20marketing%20analytics_SQL.ipynb))]
+*For technical implementation of this analysis, please check it here:* [([https://github.com/machaniG/machaniG.github.io/blob/master/notebooks/Velteva%20marketing%20analytics_SQL.ipynb](https://github.com/machaniG/machaniG.github.io/blob/master/notebooks/Velteva%20marketing%20analytics_SQL.ipynb))]
 
