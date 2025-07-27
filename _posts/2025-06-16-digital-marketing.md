@@ -147,6 +147,7 @@ df_cpc = run_query("""
 #visualize using plotly express
 ```
 ![alt text](/img/cpc_channel2.png "cpc bar plot")
+
 ![alt text](/img/cr_channel.png "cr bar plot")
 
 Next, I calculated the Customer Acquisition Cost (CAC) to see how much it truly costs to acquire a new customer.
@@ -213,6 +214,7 @@ plot_df = total_metrics_df.melt(id_vars='campaigntype', value_vars=['Spend_Ratio
 # Visualize the ratios in a bar chart using plotly express
 ```
 ![alt text](/img/conversion_spend_ratios.png "conversion-spend ratios")
+
 
 
 ## Part 2: Predicting Conversion with Machine Learning
@@ -298,6 +300,7 @@ The choice between these models depends on the specific campaign goal.
 - For **broad retargeting campaigns** where not missing a single potential customer is the priority, Random Forest is the better option due to its higher recall.
 
 ![alt text](/img/model_comparison_metrics.png "model metrics")
+
 ![alt text](/img/confusion_matrix.png "confusion matrix")
 
 ## Top Drivers of Conversion 
@@ -340,6 +343,7 @@ I deduced that;
 | 8    | **CampaignChannel\_Social Media** | Social media plays a meaningful role, likely influencing early engagement.                                |
 | 9    | **Income**                        | Higher income may correlate with conversion; consider tailoring offers.                                   |
 | 10   | **CampaignChannel\_Referral**     | Referrals can bring in high-intent users. Strengthen referral programs.                                   |
+
 
 
 
