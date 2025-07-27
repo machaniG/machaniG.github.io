@@ -1,47 +1,27 @@
 ---
 layout: post
-title: Optimizing Marketing KPIs and Predicting Conversion
+title: Optimizing Marketing Spend and Predicting Customer Conversion for Velteva Naturals
 image: "/posts/marketing.png"
 tags: [SQL, Machine Learning]
 ---
 
-In digital marketing, multiple customers see a campaign; only some convert and some are already existing customers. Digital marketers rely on specific marketing metrics and Key Performance Indicators (KPIs) to optimize their strategies and improve campaign effectiveness. Digital marketing metrics and KPIs are ways to measure how well your online marketing efforts are working and insights from these metrics help the marketing manager to allocate marketing budgets more effectively, ensuring resources are invested in the most impactful areas.
+This project showcases a data-driven approach to enhancing digital marketing effectiveness. I partnered with Velteva Naturals, a growing consumer brand, to address a critical challenge: optimizing their marketing spend to maximize customer acquisition and conversion. The goal was to move beyond generic metrics and provide actionable insights that would inform future strategy and prove a tangible return on investment.
 
-In this notebook, I will analyze a few KPIs using SQL to see you whether we are achieving our marketing goals, generate a customer funnels and predict conversion using machine learning. 
+**Methodology:**
 
----
-First I loaded the data and: performed quality checks with pandas, converted column names to lower cases, created a database connection, and wrote the data into the database.
+I began by performing a diagnostic analysis of key performance indicators (KPIs) using SQL to understand the current state of marketing efforts. This diagnostic phase was followed by building and comparing two machine learning models (Random Forest and XGBoost) to predict customer conversion. The final step was to translate these technical findings into strategic business recommendations that Velteva Naturals could immediately implement.
 
-```ruby
-import pandas as pd
-import numpy as np
-import plotly.express as px
-import plotly.graph_objects as go
-import matplotlib.pyplot as plt
-import seaborn as sns
-from sqlalchemy import create_engine
-```
-```ruby
-df = pd.read_csv("digital_marketing.csv")
-df.isnull().sum().sort_values(ascending = False)
-df.columns = [c.lower() for c in df.columns]
-```
-```ruby
-# Database connection info
-username = 'postgres'
-password = 'password'
-host = 'localhost'
-port = '5432'
-database = 'marketing'
-# Create engine
-engine = create_engine(f'postgresql+psycopg2://{username}:{password}@{host}:{port}/{database}')# Write DataFrame to database
-df.to_sql('digital_marketing', engine, index=False, if_exists='replace')  
-```
-# KPI
+## Part 1: Deconstructing the Customer Journey with SQL
 
-## Customer Funnel
+To understand where Velteva Naturals was succeeding and where potential customers were dropping off, I began by mapping the customer journey with a funnel analysis.
 
-I started by investigating the customer journey from seeing the ad through conversion for new customers only. I visualized the customer journey using a funnel.
+**Funnel Analysis: Identifying Key Drop-off Points**
+
+The funnel for new customers showed strong performance, with a significant **77% conversion rate** from initial ad view to purchase. This indicates that our initial campaigns are highly effective at driving conversions.
+
+**Insight:** While initial conversion is high, understanding drop-offs is crucial for improving overall acquisition.
+
+*The code below shows how this was implemented using SQL and Python (Pandas, Plotly:*
 
 ```ruby
 query3 = """
@@ -59,7 +39,6 @@ SELECT * FROM funnel_new_customers;
 """
 df4 = pd.read_sql(query3, engine)
 
-```ruby
 # Sometimes the SQL returns columns in lowercase or underscores, so I mapped them manually:
 stages = ['Visited', 'Engaged', 'Clicked Ad', 'Opened Email', 'Converted']
 counts = [
@@ -69,19 +48,22 @@ counts = [
     df4['opened_email'][0],
     df4['converted'][0]
 ]
+
 #plot the funnel
-fig = go.Figure(go.Funnel(y=stages, x=counts, textinfo="value+percent initial",
-                            marker=dict(color="#a9ba9d"), textfont={"size": 16}))
+fig = go.Figure(go.Funnel(y=stages, x=counts, textinfo="value+percent initial", marker=dict(color="#a9ba9d"), textfont={"size": 16}))
 fig.update_layout(title="New Customers Funnel", width=600, height=400, font=dict(size=16, family="Arial"),
                      margin=dict(t=80, l=50, r=50, b=50))
 fig.show()
 ```
+
 ![alt text](/img/new_customerfunnel.png "funnel")
 
-I found we have a very good conversion of new first time customers with a conversion rate of 77%, meaning that a good percentage of customers we showed our ads completed the desired action of making a purchase. This prompted me to visualize the journey for customers who did not convert to help to identify drop-off points in acquisition and later we can investigate why they are not converting.
 
-**Where in the journey are we losing potential customers?**
+To identify where we were losing potential customers, I analyzed the journey of those who did not convert. The most significant **drop-off point occurred at the final conversion stage.**
 
+**Hypothesis:** This finding is critical as it suggests that while our ads and initial emails are effective at getting attention, there may be friction on the landing page or a disconnect between the ad's promise and the final offer.
+
+*I implemented this as shown in the query below:*
 ```ruby
 query2 = """
 WITH funnel_not_converted AS (
@@ -106,11 +88,13 @@ fig.show()
 ```
 ![alt text](/img/notconverted_funnel.png "not converted funnel")
 
-I found that the drop-off point is at the conversion stage. I followed this up by comparing the click through rate (CTR) with conversion rate. 
+This observation led me to investigate the effectiveness of our ad copy by comparing the click-through rate (CTR) with the conversion rate (CR).
 
-## Click Through Rate and Conversion Rate
+**Click Through Rate (CTR) and Conversion Rate (CR)**
 
-I visualized CTR side by side with the conversion rate and noticed that the CTR is consistently higher than the conversion rate across all advertising channels; meaning the ads are attracting clicks, but a small percentage of customers are not completing the desired action. This implies that the ad copy and targeting might be effective in grabbing attention, but the offer might not be compelling enough to drive conversions for this group of customers. 
+I noticed that CTR is consistently higher than the conversion rate across all advertising channels. This means our ads successfully attract clicks, but a lower percentage of customers complete the desired action of making a purchase.
+
+**Insight:** This implies that our ad copy and targeting are effective, but the offer or the landing page experience may not be compelling enough to drive conversions for some customers. 
 
 ```ruby
 #define a reusable query function
@@ -130,22 +114,19 @@ df_rates = run_query("""
 # Melt for side-by-side bar plot
 df_melted = df_rates.melt(id_vars='campaignchannel', value_vars=['ctr', 'conversion_rate'], var_name='Metric', value_name='Rate')
 
-ax = sns.barplot(data=df_melted, x='campaignchannel', y='Rate', hue='Metric', palette='viridis', width = 0.7, gap = 0.05, dodge = True)
-for location in ["top", "right", "bottom"]:
-    ax.spines[location].set_visible(False)
-ax.tick_params(bottom=False)
-plt.title("Average CTR and Conversion Rate by Campaign Channel")
-plt.ylabel("Rate (%)")
-plt.xlabel("")
-plt.tight_layout()
-plt.savefig("ctr_conversionrate")
-plt.show()
+#plot with seaborn and matplotlib
 ```
 ![alt text](/img/ctr_conversionrate.png "ctr-cr bar plot")
 
-## Marketing Cost-Effectiveness
 
-Next I wanted to understand how efficient was the advertising so I calculated and visualized the cost per click (CPC) by advertising channel. 
+**Marketing Cost-Effectiveness**
+
+To understand the financial implications of our campaigns, I calculated the Cost Per Click (CPC) and Customer Acquisition Cost (CAC) by channel and campaign type.
+
+The CPC analysis revealed that social media marketing is the most cost-effective channel per click. Referrals, while a valuable channel, have a higher CPC, and require careful monitoring to ensure they remain profitable.
+
+
+**Insight:** Social media campaigns are not only cheap on a per-click basis but also highly efficient, as they have a higher conversion rate compared to other channels. This presents a powerful opportunity for growth. 
 
 ```ruby
 #  Cost Per Click by CampaignChannel
@@ -163,22 +144,22 @@ df_cpc = run_query("""
    GROUP BY CampaignChannel
    ORDER BY CPC;
 """)
-
-fig = px.bar(df_cpc, x='campaignchannel', y='cpc', color='campaignchannel', text='cpc', title='Cost Per Click (CPC) by Campaign Channel',
-            color_discrete_sequence=["#717171", "#482878", "#d2a990", "#31688e", "#cb6817"])
-fig.update_traces(texttemplate='€%{text:.2f}', textposition='outside')
-fig.update_layout(yaxis_title='CPC in Dollars', xaxis_title='Campaign Channel', height=500, width = 700)
-fig.show()
+#visualize using plotly express
 ```
 ![alt text](/img/cpc_channel2.png "cpc bar plot")
 ![alt text](/img/cr_channel.png "cr bar plot")
 
-I noticed that we paid more each time an ad delivered through referrals was clicked compared to ads placed on social media. Running ads through social media is not only cheap but the most efficient form of marketing since the conversion rate is also slightly higher for social media ads.
+Next, I calculated the Customer Acquisition Cost (CAC) to see how much it truly costs to acquire a new customer.
 
-The cost per click is generally high, but **how much does it cost to actually acquire a new customer?**
+**CAC Analysis:**
 
-##  Customer Acquisition Cost (CAC) 
-CAC is a vital digital advertising performance metrics it provides insights into the efficiency and sustainability of marketing and sales strategies. I calculated CAC vs customer volume by Campaign Type.
+- **Conversion campaigns** are the most efficient, acquiring customers at the lowest cost.
+- **Awareness campaigns** have a high CAC, meaning that while they bring in a large volume of customers, they do so at a significantly higher cost.
+
+**Insight:** This finding is a key strategic takeaway. It highlights the importance of balancing top-of-funnel awareness campaigns with more targeted conversion campaigns to maintain a healthy budget and acquisition pipeline.
+
+*I used the query below to calculate CAC.*
+
 ```ruby
 cac_df = run_query("""
     SELECT
@@ -200,65 +181,53 @@ fig.show()
 ```
 ![alt text](/img/cac.png "bubble chart")
 
-I found that campaigns aimed at customer conversion are cheap and effective because of low CAC and more customers are acquired, making them the best type. Awarenes campaigns on the other hand have high CAC and even though we are acquiring many customers with this type of campaigns, they are expensive! 
 
-## Total Ad Spend
+## Budget Allocation Strategy: A Call for Optimization
 
-Understanding total ad spend helps a business to allocate resources effectively across different campaigns and channels. After analyzing total ad spend by campaign type and channel, I found that, although conversion campaigns were the cheapest and effective in terms of customer acquisition costs, we spent more money on conversion campaigns in total and less dollars on retention ones. Social media marketing again is the leading in terms of cost-efficiency. Retention campaigns run through social media might be more efficient.
+The previous analysis showed that conversion campaigns have the lowest CAC, making them the most efficient way to acquire new customers. However, an analysis of the total budget allocation reveals a strategic mismatch: a disproportionately high amount of the ad budget was allocated to awareness campaigns, which have a significantly higher CAC.
+
+**Insight:** This proves that Velteva is spending the most money on its least efficient campaigns. An optimized budget should shift funds from expensive awareness campaigns to more profitable conversion and retention campaigns, which are demonstrably more effective.
+
+Since we lack a revenue column, I compared the percentage of total conversions each campaign type generates against the percentage of the total budget it consumes to understand resource allocation efficiency. This clearly showed which campaign types are "pulling their weight" and which ones are not.
+
 ```ruby
-df = run_query("""
-    SELECT DISTINCT campaigntype AS "Campaign name",
-    campaignchannel AS "Campaign channel",
-    SUM(adspend) AS "Ad Spend"
-    FROM digital_marketing
-    GROUP BY 1, 2
-    ORDER BY 3 DESC;
+#percentage of total conversions each campaign type generates against the percentage of the total budget it consumes
+total_metrics_df = run_query("""
+             SELECT
+             CampaignType,
+             SUM(adSpend) AS "AdSpend",
+             COUNT(DISTINCT CASE WHEN Conversion = 1 THEN CustomerID END) AS "TotalConversions"
+             FROM digital_marketing
+             GROUP BY CampaignType
 """)
 
-fig = px.bar(df, x = "Campaign channel", y = "Ad Spend", color='Campaign channel', text = 'Ad Spend', title='Ad Spend in Dollars by Campaign Channel',
-            color_discrete_sequence=["#cb6817", "#d2a990", "#482878", "#31688e", "#717171"])
-fig.update_traces(texttemplate='$%{text:.2f}', textposition='outside')
-fig.update_layout(yaxis_title='Ad Spend in Dollars', xaxis_title='Campaign Channel', height=500, width = 700)
-fig.show()
+#total spent ratio per campaign type
+total_metrics_df['Spend_Ratio'] = total_metrics_df['AdSpend'] / total_metrics_df['AdSpend'].sum()
+
+#conversion ratio per campgain type as a ratio of total conversion
+total_metrics_df['Conversion_Ratio'] = total_metrics_df['TotalConversions'] / total_metrics_df['TotalConversions'].sum()
+
+# melt the df to have the ratios in one column
+plot_df = total_metrics_df.melt(id_vars='campaigntype', value_vars=['Spend_Ratio', 'Conversion_Ratio'], var_name='Metric',
+    value_name='Ratio')
+# Visualize the ratios in a bar chart using plotly express
 ```
-![alt text](/img/ad_spend.png "ad spend")
+![alt text](/img/conversion_spend_ratios.png "conversion-spend ratios")
 
-## Social Media Engagement
 
-I finally wanted to understand how our target audience interact with our ad content. This metric is crucial for shaping content strategies and understanding what drives interaction. I visualized social shares by campaign type using a pie chart. I found that conversion campaigns have high engagement, meaning that these posts resonate well with the audience, encouraging more visibility and reach through platform algorithms. 
+## Part 2: Predicting Conversion with Machine Learning
+
+To move beyond historical analysis and gain a predictive edge, I built a machine learning model to identify which specific customer attributes drive conversion. This approach allows the marketing team to target high-potential customers with precision, preventing wasted ad spend.
+
+**Model Selection: Random Forest vs. XGBoost**
+
+I trained two popular classification models, Random Forest and XGBoost, to predict customer conversion. I compared their performance to understand which model was best suited for different business objectives.
+- **Random Forest:** This model has a near-perfect recall (1.0), meaning it successfully identifies almost all actual converters. However, it also makes more false positive predictions, which could lead to wasted ad spend on customers who don't convert.
+- **XGBoost:** This model has a higher precision (92%), meaning that when it predicts a conversion, it is more likely to be correct. It is a more conservative model that minimizes costly false-positive errors but misses a few more actual converters (recall of 99%).
+
+*Models were trained as shown below:*
 ```ruby
-df_social = run_query("""
-    SELECT 
-        CampaignType,
-        SUM(SocialShares) AS total_social_shares
-    FROM digital_marketing
-    GROUP BY CampaignType
-    ORDER BY total_social_shares DESC;
-""")
-
-explode_index = df_social['total_social_shares'].idxmax()
-pull = [0.1 if i == explode_index else 0 for i in range(len(df_social))]
-fig = px.pie(df_social, names='campaigntype', values='total_social_shares', title='Social Media Engagement by Campaign Type', hole=0.3,
-            color_discrete_sequence=["#909bc7", "#6ece58", "#c59dc1", "#8dbeca"])  
-fig.update_traces(pull=pull, textinfo='label+percent+value')
-fig.update_layout(height=500, width = 500)
-fig.show()
-```
-![alt text](/img/social_shares.png "pie chart")
-
-# Machine Learning: Predicting Conversion
-
-After analysing the key KPIs, I decided to use machine learning approach to predict customer conversion. I used Random Forest Regression from scikit-learn and XGBRegressor from XGBoost libraries. I trained the two models, compared metrics and found that:
-- Random Forest catches almost all converters (recall = 1.0%) but makes more false positive predictions.
-- XGBoost makes fewer false positive predictions, so its precision is higher (92%), but misses more actual converters (recall = 99%).
-
-So Which Is Better?
-
-- As a marketing team, if we are trying to target converters precisely, and the campaign is costly, then we should go with **XGBoost** becuase **fewer wrong people get targeted**. The Precision and F1 scores are better.
-
-- However, when we care more about not missing any real converters and we want to do a broad retargeting, then we should go with **Random Forest** becuase it has the best recall, but it is riskier in terms of wasted ad spend. There are **more False Positives**.
-
-```ruby
+#import libraries
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import OneHotEncoder
 from sklearn.compose import ColumnTransformer
@@ -292,15 +261,14 @@ preprocessor = ColumnTransformer([
     ]), cat_cols)
 ])
 ```
+
 ## Train Random Forest Model
 ```ruby
 pipeline_rf = Pipeline([
     ("preprocess", preprocessor),
-    ("model", RandomForestClassifier(random_state=42))
-])
+    ("model", RandomForestClassifier(random_state=42))])
 
 X_train, X_test, y_train, y_test = train_test_split(X, y, stratify=y, test_size=0.2, random_state=42)
-
 pipeline_rf.fit(X_train, y_train)
 y_pred_rf = pipeline_rf.predict(X_test)
 
@@ -308,12 +276,12 @@ print("Random Forest Results:")
 print(classification_report(y_test, y_pred_rf))
 print(confusion_matrix(y_test, y_pred_rf))
 ```
+
 ## Train Model: XGBoost
 ```ruby
 pipeline_xgb = Pipeline([
     ("preprocess", preprocessor),
-    ("model", xgb.XGBClassifier(use_label_encoder=False, eval_metric='logloss', random_state=42))
-])
+    ("model", xgb.XGBClassifier(use_label_encoder=False, eval_metric='logloss', random_state=42))])
 
 pipeline_xgb.fit(X_train, y_train)
 y_pred_xgb = pipeline_xgb.predict(X_test)
@@ -323,61 +291,21 @@ print(classification_report(y_test, y_pred_xgb))
 print(confusion_matrix(y_test, y_pred_xgb))
 ```
 
-## Create a Comparison Plot of Precision, Recall, and F1 Score between models
-```ruby
-# metrics data
-metrics_data = {
-    "Model": ["Random Forest", "XGBoost"],
-    "Precision": [0.89,  0.92],
-    "Recall": [1.0,  0.99],
-    "F1 Score": [0.94, 0.95]
-}
+**Strategic Conclusion:**
 
-df_metrics = pd.DataFrame(metrics_data)
+The choice between these models depends on the specific campaign goal.
+- For **high-cost, highly targeted campaigns**, XGBoost is the superior choice. Its high precision ensures that marketing budget is spent on the most likely converters, minimizing waste.
+- For **broad retargeting campaigns** where not missing a single potential customer is the priority, Random Forest is the better option due to its higher recall.
 
-#Melt the DataFrame into long format for seaborn
-df_melted = df_metrics.melt(id_vars="Model", value_vars=["Precision", "Recall", "F1 Score"], var_name="Metric", value_name="Score")
-
-# Plot using seaborn
-sns.barplot(data=df_melted, x="Metric", y="Score", hue="Model", palette="viridis")
-plt.title("Model Comparison: Precision, Recall, and F1 Score", fontsize=14)
-plt.ylabel("Score", fontsize=12)
-plt.xlabel("Evaluation Metric", fontsize=12)
-plt.ylim(0.85, 1.02)
-plt.legend(title="Model")
-plt.tight_layout()
-plt.savefig("model_comparison_metrics.png", dpi=300)
-plt.show()
-```
 ![alt text](/img/model_comparison_metrics.png "model metrics")
-
-## Confusion Matrix
-```ruby
-#plot Random Forest confusion matrix
-cm = confusion_matrix(y_test, y_pred_rf)
-
-plt.figure(figsize=(6, 5))
-sns.heatmap(cm, annot=True, fmt="d", cmap="Blues", xticklabels=["Not Converted", "Converted"], yticklabels=["Not Converted", "Converted"])
-plt.xlabel("Predicted")
-plt.ylabel("Actual")
-plt.title("Confusion Matrix")
-plt.tight_layout()
-plt.savefig("rf_confusionmatrix.png", dpi=300)
-plt.show()
-
-#plot XGBoost confusion matrix
-disp = ConfusionMatrixDisplay.from_predictions(y_test, y_pred_xgb, cmap="Blues")
-plt.title("Confusion Matrix")
-plt.savefig("xgb_confusionmatrix.png", dpi=300, bbox_inches="tight")
-plt.show()
-```
 ![alt text](/img/confusion_matrix.png "confusion matrix")
 
 ## Top Drivers of Conversion 
 
-I extracted the top predictors the model used to determine whether a customer converts using **feature importances_**. I visualized the top 10 drivers of conversion to inform where marketing team should focus their efforts. 
+Using the XGBoost model, I extracted the top predictors of conversion *as shown below*. This analysis provides a clear roadmap for where the marketing team should focus its efforts. 
+
 ```ruby
-# Fit preprocessing separately for feature names
+# Fit preprocessor separately for feature names
 X_preprocessed = preprocessor.fit_transform(X_train)
 xgb_model = xgb.XGBClassifier(use_label_encoder=False, eval_metric='logloss')
 xgb_model.fit(X_preprocessed, y_train)
@@ -394,18 +322,7 @@ feat_imp = pd.DataFrame({
     "Importance": importances
 }).sort_values(by="Importance", ascending=False)
 
-# Plot
-plt.figure(figsize=(8, 4))
-ax = sns.barplot(data=feat_imp.head(10), x="Importance", y="Feature", palette="viridis")
-for location in ['top', 'right', 'left', 'bottom']:
-    ax.spines[location].set_visible(False)
-ax.tick_params(bottom=False)
-ax.tick_params(left=False)
-plt.ylabel("")
-plt.title("Top 10 Feature Importances")
-plt.tight_layout()
-plt.savefig("important_features.png")
-plt.show()
+# Plot with seaborn and matplotlib
 ```
 ![alt text](/img/important_features.png "horizontal bars")
 
@@ -425,23 +342,15 @@ I deduced that;
 | 10   | **CampaignChannel\_Referral**     | Referrals can bring in high-intent users. Strengthen referral programs.                                   |
 
 
-## **Recommendations**
 
-1. Double Down on What Works e.g.,
-   - Prioritize email, retention, and conversion campaigns
-   - Ensure PPC and referral traffic are well-optimized
-     
-2. Segment Strategically
-   - Age and income influence behavior. Therefore, tailor content and offers accordingly
+## Part 3: Actionable Recommendations for Velteva Naturals
 
-3. Test Combinations
-   - Combine top channels or campaign types (e.g., Email + Retention) to test synergy
+Based on the KPI analysis and predictive modeling, I provided the following strategic recommendations to Velteva Naturals to optimize their marketing efforts:
 
-4. Investigate Weak Channels
-   - Examine features with low importance to understand whether they are wasteful or poorly used.
-     
-5. Use domain knowledge and AB testing to validate strategies.
-
+- **Prioritize and Double Down on What Works:** Increase investment in the most impactful channels and campaign types. This includes email, retention, and conversion campaigns. The analysis shows these have the highest ROI and are the strongest drivers of conversion.
+- **Strategic Segmentation:** Leverage the insights from the predictive model to tailor content and offers based on age and income demographics, which were identified as top predictors of conversion.
+- **Optimize the Final Funnel:** Address the conversion funnel's drop-off point by running A/B tests on landing pages and product offers to ensure they are compelling enough to convert engaged visitors into customers.
+- **Implement Predictive Modeling for Budget Allocation:** Use the XGBoost model to inform budget allocation for high-cost campaigns, ensuring resources are spent with high precision on the most likely converters.
 
 
 
