@@ -5,7 +5,12 @@ image: "/posts/marketing.png"
 tags: [SQL, Machine Learning]
 ---
 
-This project showcases a data-driven approach to enhancing digital marketing effectiveness. I partnered with Velteva Naturals, a growing consumer brand, to address a critical challenge: optimizing their marketing spend to maximize customer acquisition and conversion. The goal was to move beyond generic metrics and provide actionable insights that would inform future strategy and prove a tangible return on investment.
+Goal: To enhance digital marketing effectiveness and acquire new customers without overspending.
+Problem: The client, Velteva, was running multiple digital marketing campaigns but lacked a clear, data-driven understanding of their effectiveness and profitability. The goal was to acquire new customers without overspending.
+
+Solution: I developed a comprehensive analytics solution. First, using SQL and Python, I diagnosed the marketing funnel, calculating key performance indicators (KPIs) like Customer Acquisition Cost (CAC), Cost Per Click (CPC), conversion rates, and Social Shares. I then built and compared two machine learning models (XGBoost and Random Forest) to predict customer conversion. The best-performing model achieved a 99% recall and identified the top drivers of conversion.
+
+Impact: My analysis provided a clear, actionable roadmap. I identified highly efficient campaigns and diagnosed the tactical reasons for low performance in others. The project's findings now serve as a foundation for strategic budget reallocation and more profitable customer acquisition for the Velteva marketing team.
 
 **Methodology:**
 
@@ -56,9 +61,9 @@ fig.update_layout(title="New Customers Funnel", width=600, height=400, font=dict
 fig.show()
 ```
 
-![alt text](/img/new_customerfunnel.png "funnel")
+![alt text](/img/New_Customers_Funnel.png "funnel")
 
-
+![alt text](/img/Not_converted_Funnel.png "funnel")
 To identify where we were losing potential customers, I analyzed the journey of those who did not convert. The most significant **drop-off point occurred at the final conversion stage.**
 
 **Hypothesis:** This finding is critical as it suggests that while our ads and initial emails are effective at getting attention, there may be friction on the landing page or a disconnect between the ad's promise and the final offer.
@@ -358,4 +363,5 @@ Based on the KPI analysis and predictive modeling, I provided the following stra
 
 
 *For technical implementation of this analysis, please check it here:* [([https://github.com/machaniG/machaniG.github.io/blob/master/notebooks/Velteva%20marketing%20analytics_SQL.ipynb](https://github.com/machaniG/machaniG.github.io/blob/master/notebooks/Velteva%20marketing%20analytics_SQL.ipynb))]
+
 
