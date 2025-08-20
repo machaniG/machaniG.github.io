@@ -26,7 +26,7 @@ As illustrated below, the most significant drop-off occurs at the final Converte
 <img width="700" height="600" alt="conversion_rates" src="https://github.com/user-attachments/assets/d8c72e4d-db1b-4420-ad9e-116f02aaeecf" />
 
 
-<img width="976" height="440" alt="image" src="https://github.com/user-attachments/assets/911ccc25-5f8f-4e09-b26a-d36d503bac87" />
+<img width="976" height="440" alt="image" src="https://github.com/user-attachments/assets/40415d4d-7900-4d90-9e33-e12f21794a9b" />
 
 
 
@@ -101,6 +101,7 @@ To make this model actionable, I analyzed the features that most influence conve
 
 *For technical implementation of this analysis, please check this notebook here:* 
 [Marketing Analytics Notebook](https://github.com/machaniG/machaniG.github.io/blob/master/notebooks/Marketing_Analytics.ipynb)
+
 
 
 
