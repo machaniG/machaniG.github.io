@@ -5,104 +5,38 @@ image: "/posts/customers.png"
 tags: [Python, Power BI]
 ---
 
-# Introduction
+# Executive Summary
 
-This project focuses on segmenting and analyzing customers of an e-commerce business, Crimsonloop, to better understand their purchasing behavior. The goal was to provide actionable recommendations for targeted marketing and optimized resource allocation, ultimately improving customer experiences, increasing sales, and enhancing customer retention.
-
-## The Challenge
-
-Crimsonloop needed a deeper understanding of its diverse customer base. Generic marketing campaigns and resource allocation were inefficient, as they failed to account for varying customer values and behaviors. The business needed clear insights to identify high-value customers, anticipate purchasing patterns, and tailor engagement strategies.
+This analysis empowered Crimsonloop to move beyond a one-size-fits-all strategy by segmenting our diverse customer base into four distinct tiers. My findings reveal that two customer segments, the Premium and Loyalty tiers, drive 74% of our revenue. Our high value segment, customers who have a single-transaction value over $1,000, represent only 2.8% of our customers but contributes 13% of revenue.By focusing on these high-value segments, we can develop targeted, high-impact marketing strategies, ultimately enhancing customer retention and driving significant revenue growth.
 
 ## My Approach
 
-I conducted a comprehensive customer segmentation and behavior analysis using Python (Pandas, Scikit-Learn, NumPy, Matplotlib, Seaborn, Plotly) for data manipulation, statistical analysis, and initial visualization, culminating in an interactive Power BI dashboard for holistic KPI comparison. My process involved:
-
-- **Integrated and preprocessed five different datasets**, ensuring data quality and readiness for advanced analysis.
-- **Conducted in-depth sales behavior analysis**, revealing significant data skewness that highlighted high-value transaction opportunities.
-- **Implemented both rule-based and machine learning (K-means) customer segmentation**, defining distinct customer tiers to identify and analyze high-value segments.
-- **Performed comprehensive behavioral and temporal trend analysis of VIP customers**, uncovering critical demographic, product, and purchasing patterns.
-- **Developed an interactive Power BI dashboard** for holistic KPI comparison across all customer segments, facilitating easy exploration and data-driven decision-making.
+After preprocessing and integrating multiple datasets, I used rule-based segmentation to define four distinct customer tiers based on their transaction values. This approach allowed for a clear, immediate understanding of our customer base, paving the way for targeted marketing and resource allocation. The analysis culminated in a set of dashboards designed to provide a real-time insights on our customer base. 
 
 
 # Key Discoveries & Actionable Insights:
 
-Through rigorous analysis and visualization, I uncovered critical insights that directly informed Crimsonloop's business strategy:
-
 ## 1. **Unveiling High-Value Customers & Segmentation:**
    
-Initial net sales analysis revealed a highly skewed distribution and a significant "long tail" of high-value transactions. This prompted a multi-faceted approach to segmentation.
+Initial analysis revealed a right skewed distribution of sales and a "long tail" between the 99 percentile and the maximum transaction value, signalling high-value customer opportunities. This prompted me to perform customer segmentation and analyze their unique behaviors and preferences. Click [here](https://github.com/machaniG/machaniG.github.io/blob/master/notebooks/Crimsonloop%20Customer%20segmentation%20%26%20behavior%20analysis.ipynb) for technical implementation of this project.
 
-**Rule-Based Segmentation:** Based on business understanding and key thresholds, I identified distinct customer tiers:
+The Elite segment is made of 41 customers out of 1468 of our customers, representing only 2.7%. They are returning customers who buy products worth at least $1,000 per transaction and generated 13.1% of revenue in 2019. As illustrated in the *sales dashboard below*, the average transaction value for Elite customers is $98.4 while that of the Premium and Loyalty tiers are $72.3 and $63.5, respectively. While our two leading customer segments, the Premium and Loyalty tiers, drive 38.1% and 36.4% of our revenue respectively, they have 12 and 6 times more customers than the Elite tier. This implies that the Elite tier represent a small but extremely valuable segment if targeted with personalized offers and exclusive services can drive significant revenue growth. The Premium and Loyalty customers are critical for sustaining and growing the business. Understanding their preferences, purchase patterns, and demographics (e.g., location, gender) can help to tailor marketing and retention strategies.
 
-- **VIP Tier:** Ultra-high-value customers with transactions over $1,000.
-- **Premium Tier:** Customers in the 99th percentile.
-- **Loyalty Tier:** Customers in the 95th percentile.
-- **Regular Tier:** The remaining customers.
+![alt text](/img/sales_insights.png "sales dashboard")
 
-This segmentation underscored the importance of focusing on high-value customers for personalized marketing and loyalty programs.
 
-*Initial analysis, as seen in the **Sales Distribution Box Plot** and **Top 1% Spenders Histogram** below, revealed a highly skewed distribution of sales, signaling significant high-value customer opportunities.*
+## 2. **Uncovering Product Preferences:**
 
-![alt text](/img/sales_distribution.png "Box Plot")
+Analysis of product category revealed that a single category, **Nest-USA**, **generates 55.1% of our revenue**. However, we sold more Office products followed by Apparel and Drinkware. Office category are our most selling products, leading with 88k units sold but generates only 6% of total revenue while  Nest-USA is number 5 in terms of units sold. This revenue gap is understandable because the average unit cost for Nest-USA is $124.3 while that of Office products is $3.8. The dashboard and chart below show Office, Apparel, Drinkware, Nest, Nest-USA, Lifestyle, and Bags are our most selling products. The inventory manager can leverage this insights for procurement to balance supply and demand.
 
-![alt text](/img/top1_percent.png "Histogram")
+![alt text](/img/category_insights.png "category dashboard")
 
-*The core logic for defining these rule-based customer tiers in Python is provided below:*
+<img width="1535" height="842" alt="image" src="https://github.com/user-attachments/assets/76f373f7-05bb-4e8f-934b-7b3d5c5cc44b" />
 
-```ruby
-# Define segmentation cutoffs based on quantiles for data-driven thresholds
-cutoff_95 = df["net_sales"].quantile(0.95)
-cutoff_99 = df["net_sales"].quantile(0.99)
-vip_threshold > 1000 # Specific business-defined threshold for VIP
 
-# Assign segments based on calculated thresholds, ensuring exclusivity
-df.loc[df["net_sales"] > vip_threshold, "segment"] = "VIP Tier"
-df.loc[(df["net_sales"] > cutoff_99) & (df["segment"].isna()), "segment"] = "Premium Tier"
-df.loc[(df["net_sales"] > cutoff_95) & (df["segment"].isna()), "segment"] = "Loyalty Tier"
-df.loc[df["segment"].isna(), "segment"] = "Regular"
-```
+## 3. **Geographic and Gender Insights:**
 
-**Machine Learning-Driven Segmentation (K-Means Clustering):**
 
-To validate and potentially discover deeper, data-driven segments, I also applied K-means clustering using key RFM (Recency, Frequency, Monetary) features. This unsupervised learning approach provided an alternative perspective on natural customer groupings.
-
-*A comparison of the K-means clusters against the rule-based segments revealed a nuanced overlap, validating existing business rules while also highlighting areas for deeper understanding. Specifically, **Cluster 3** showed a strong alignment with the **VIP Tier**, reinforcing its distinctiveness. The **Loyalty, Premium, and Regular Tiers** were primarily distributed across **Cluster 0 and Cluster 2,** suggesting a natural grouping of mid-to-low value customers that could be explored for more granular targeting. This dual approach ensured robust, actionable segmentation.*
-
-*The clustering results below show a visualized scatter plot of RFM features colored by cluster and using segments as markers:*
-
-![alt text](/img/Kmeans_clusters.png "scatter Plot")
-
-*Below is the Python code for applying K-means clustering, starting with the derivation of RFM features from the transaction data:*
-
-```ruby
-from sklearn.cluster import KMeans
-from sklearn.preprocessing import StandardScaler
-import numpy as np
-import datetime
-
-# Calculate RFM features from the transaction data
-# Assuming 'net_sales' for Monetary, 'Transaction_ID' for Frequency, and 'Transaction_Date_x' for Recency
-current_date = df['Transaction_Date_x'].max() # Use the most recent transaction date as reference
-
-rfm_data = df.groupby('CustomerID').agg(
-    Recency=('Transaction_Date_x', lambda date: (current_date - date.max()).days),
-    Frequency=('Transaction_ID', 'count'),
-    Monetary=('net_sales', 'sum')
-).reset_index()
-
-# Scale features for K-Means to ensure equal weighting
-scaler = StandardScaler()
-rfm_scaled = scaler.fit_transform(rfm_data[['Recency', 'Frequency', 'Monetary']])
-
-# Apply K-Means clustering (e.g., for an optimal number of clusters, determined via elbow method/silhouette score)
-# After exploring a number of K, I choose the optimal K = 4 clusters
-
-kmeans = KMeans(n_clusters=4, random_state=42, n_init=10) # n_init is set to 'auto' or explicit value in newer scikit-learn
-rfm_data['Cluster'] = kmeans.fit_predict(rfm_scaled)
-
-# The actual implementation involving exploring optimal K and in-depth cluster profiling can be found here
-# [([https://github.com/machaniG/machaniG.github.io/blob/master/notebooks/Customer%20segmentation%20%26%20behavior%20analysis.ipynb](https://github.com/machaniG/machaniG.github.io/blob/master/notebooks/Customer%20segmentation%20%26%20behavior%20analysis.ipynb))].
-```
 
 ## 2. **Geographic & Gender Insights for VIPs:**
    
