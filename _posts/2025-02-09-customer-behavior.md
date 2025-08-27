@@ -36,36 +36,18 @@ Analysis of product category revealed that a single category, **Nest-USA**, **ge
 
 ## 3. **Geographic and Gender Insights:**
 
+Most of our revenue come from California and Chicago and the two states accounted for 65% of total revenue in 2019. However, as seen in the dashboards below, the two regions have 920 out of our 1468 customers and more than half of our high value customers, that is; 28 Elite, 159 Premium, and 313 Loyalty customers. 
 
 
-## 2. **Geographic & Gender Insights for VIPs:**
+## 4. **Critical Temporal Trends:**
+
+After analyzing temporal trends over time, I uncovered a notable spike of Elite sales in April. A deep dive into the Elite transactions further revealed that such high-value transactions cluster on Thursdays and Fridays, and crucially, **no Elite transaction on Tuesdays**; highlighting a clear pattern for operational adjustments.  
+
+Apparel and Notebooks & Journals are the leading categories sold to elite customers
+
+## 5. **Product Preferences of High-Value Buyers:**
    
-Analysis of VIP sales by location and gender revealed that **Chicago and California** were the leading regions for high-value transactions, with **female customers** generally contributing more to VIP sales. Interestingly, Chicago showed a higher number of male VIP customers compared to other locations.
-
-*The **VIP Sales by Location and Gender** charts below provide detailed demographic insights, revealing leading regions for high-value transactions and gender distribution.*
-
-![alt text](/img/vip_sales_location_and_gender.png "Stacked Bars")
-![alt text](/img/vip_customers_loc_gender.png "Column Plot")
-
-*The summary of VIP sales by location and gender was generated using Pandas for aggregation:*
-
-```ruby
-# Group VIP transactions to summarize sales and customer counts by location and gender
-vip_summary = vip.groupby("CustomerID").agg({
-    "net_sales": "sum",
-    "Transaction_ID": "count",
-    "Quantity": "sum",
-    "Location": "first",
-    "Gender": "first"
-}).reset_index()
-
-gender_summary = vip.groupby(["Location", "Gender"])["CustomerID"].nunique().reset_index()
-gender_summary.rename(columns={"CustomerID": "Unique_Customers"}, inplace=True)
-```
-
-## 3. **Product Preferences of High-Value Buyers:**
-   
-A significant portion of VIP revenue was derived from **Apparel** and **Notebooks & Journals** categories. Conversely, **Nest products** showed negligible sales among VIP customers. Bulky orders predominantly originated from Chicago and California, aligning with their high transaction volumes.
+A significant portion of Elite revenue derive from **Apparel** and **Notebooks & Journals** categories. Conversely, **Nest products** showed negligible sales among Elite customers. Bulky orders predominantly originated from Chicago and California, aligning with their high transaction volumes.
 
 *To understand product preferences, the charts below illustrate the **product categories driving VIP sales** and the **quantity sold to VIPs by category and location.***
 
