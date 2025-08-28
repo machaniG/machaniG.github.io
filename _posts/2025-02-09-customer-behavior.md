@@ -18,9 +18,9 @@ To validate these business-driven segments, I applied **K-means clustering**, an
 - Cluster 3 showed a strong alignment with the Elite Tier, reinforcing its distinctiveness.
 - The Loyalty, Premium, and Regular Tiers were primarily distributed across Cluster 0 and Cluster 2, suggesting a natural grouping of mid-to-low value customers that could be explored for more granular targeting.
 
-
-
 This synergy between the business rules and the data's inherent structure provided a strong foundation for the analysis. The project culminated in a set of dashboards designed to provide real-time insights into our customer base.
+
+![alt text](/img/Kmeans_clusters.png "scatter plot")
 
 
 # Key Discoveries & Actionable Insights
@@ -31,7 +31,7 @@ Initial analysis revealed a right-skewed distribution of sales and a "long tail"
 My rule-based segmentation identified the **Elite segment** as customers who have at least one single-transaction value over $1,000. This group is made up of 41 customers out of 1,468, representing only 2.8% of our customer base. They are all returning customers and generated 13.1% of revenue in 2019.
 While this segment is defined by their high-value purchases, it's important to note that the average transaction value for the Elite tier is $115.31. This is because this average includes all their transactions, not just the single large ones that qualified them for the tier. Their average transaction value is still significantly higher than the Premium and Loyalty tiers, whose averages are $78.01 and $67.47, respectively.
 
-![alt text](/img/vip_transactions_overtime.png "Line Graph")
+![alt text](/img/Kmeans_clusters.png "scatter plot")
 
 
 ## 2. Customer Lifetime Value (LTV) Analysis
@@ -53,7 +53,7 @@ The analysis revealed that a single product category, **Nest-USA**, generates 55
 
 ![alt text](/img/vip_transactions_overtime.png "Line Graph")
 
-![alt text](/img/vip_transactions_overtime.png "Line Graph")
+![alt text](/img/revenue_percent_cat.png "bar graph")
 
 
 ## 4. Geographic and Gender Insights
@@ -71,7 +71,10 @@ After analyzing temporal trends over time, I uncovered a notable spike of sales 
 
 *These critical **temporal patterns**, including monthly spikes and daily variations, are clearly visualized in the charts below.*
 
-![alt text](/img/vip_sales_overtime.png "Line Graph")
+![alt text](/img/trends_over_timer.png "Line Graph")
+![alt text](/img/trends_over_timer.png "Line Graph")
+
+![alt text](/img/trends_over_timer.png "Line Graph")
 
 
 # What's Missing to Make This a Great Project?
