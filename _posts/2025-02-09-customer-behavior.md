@@ -31,7 +31,7 @@ Initial analysis revealed a right-skewed distribution of sales and a "long tail"
 My rule-based segmentation identified the **Elite segment** as customers who have at least one single-transaction value over $1,000. This group is made up of 41 customers out of 1,468, representing only 2.8% of our customer base. They are all returning customers and generated 13.1% of revenue in 2019.
 While this segment is defined by their high-value purchases, it's important to note that the average transaction value for the Elite tier is $115.31. This is because this average includes all their transactions, not just the single large ones that qualified them for the tier. Their average transaction value is still significantly higher than the Premium and Loyalty tiers, whose averages are $78.01 and $67.47, respectively.
 
-![alt text](/img/Kmeans_clusters.png "scatter plot")
+![alt text](/img/sales_insights.png "dashboard")
 
 
 ## 2. Customer Lifetime Value (LTV) Analysis
@@ -43,9 +43,6 @@ The analysis revealed a clear hierarchy of value:
    -	**Loyalty Tier:** $4,572.79
    -	**Regular Tier:** $1,347.56
 This finding further justifies a concentrated effort on retention and personalized marketing for the Elite group. The Premium (17.6% of customers) and Loyalty (34.6% of customers) tiers are our largest revenue drivers, contributing 36.4% and 38.1% of total revenue, respectively. Conversely, the Regular tier, which accounts for 45% of our customers, generates the least amount of revenue at 12.5%. The key takeaway is to develop distinct strategies for each segment: nurture the high-value Elite customers for long-term loyalty and growth, while implementing scale-friendly, efficient marketing for the mid-to-low value segments.
-
-![alt text](/img/vip_transactions_overtime.png "Line Graph")
-
 
 ## 3. Uncovering Product Preferences
 
@@ -60,7 +57,7 @@ The analysis revealed that a single product category, **Nest-USA**, generates 55
 
 Most of our revenue comes from **California and Chicago**, which accounted for 65% of total revenue in 2019. These two regions have 920 out of our 1,468 customers and more than half of our high-value customers, that is; 28 Elite, 159 Premium, and 313 Loyalty customers.
 
-![alt text](/img/vip_transactions_overtime.png "Line Graph")
+![alt text](/img/location_insights.png "dashboard")
 
 ![alt text](/img/vip_transactions_overtime.png "Line Graph")
 
