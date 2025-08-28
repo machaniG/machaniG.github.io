@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Customer Segmentation and LTV Analysis
-image: "/posts/customers.png"
+image: "/img/sales_insights.png"
 tags: [Python, Power BI]
 ---
 # Executive Summary
