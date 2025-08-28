@@ -48,7 +48,7 @@ This finding further justifies a concentrated effort on retention and personaliz
 
 The analysis revealed that a single product category, **Nest-USA**, generates 55.1% of our revenue. However, the most units sold were in the **Office** category, followed by Apparel and Drinkware. While the Office category leads with 88k units sold, it generates only 6% of total revenue due to its low average unit cost of $3.8, compared to Nest-USA's average unit cost of $124.3. The inventory manager can leverage this insight for procurement to balance supply and demand.
 
-![alt text](/img/vip_transactions_overtime.png "Line Graph")
+![alt text](/img/category_insights.png "dashboard")
 
 ![alt text](/img/revenue_percent_cat.png "bar graph")
 
@@ -59,7 +59,7 @@ Most of our revenue comes from **California and Chicago**, which accounted for 6
 
 ![alt text](/img/location_insights.png "dashboard")
 
-![alt text](/img/vip_transactions_overtime.png "Line Graph")
+![alt text](/img/geographic.png "dashboard")
 
 
 ## 5. Critical Temporal Trends
@@ -68,8 +68,9 @@ After analyzing temporal trends over time, I uncovered a notable spike of sales 
 
 *These critical **temporal patterns**, including monthly spikes and daily variations, are clearly visualized in the charts below.*
 
-![alt text](/img/trends_over_timer.png "Line Graph")
-![alt text](/img/trends_over_timer.png "Line Graph")
+![alt text](/img/all_sales_overtime.png "Line Graph")
+
+![alt text](/img/all_trans_dayofweek.png "Line Graph")
 
 ![alt text](/img/trends_over_timer.png "Line Graph")
 
