@@ -4,120 +4,93 @@ title: Crimsonloop Customer Segmentation and Behavior Analysis
 image: "/posts/customers.png"
 tags: [Python, Power BI]
 ---
-
 # Executive Summary
 
-This analysis empowered Crimsonloop to move beyond a one-size-fits-all strategy by segmenting our diverse customer base into four distinct tiers. My findings reveal that two customer segments, the Premium and Loyalty tiers, drive 74% of our revenue. Our high value segment, customers who have a single-transaction value over $1,000, represent only 2.8% of our customers but contributes 13% of revenue.By focusing on these high-value segments, we can develop targeted, high-impact marketing strategies, ultimately enhancing customer retention and driving significant revenue growth.
-
-## My Approach
-
-After preprocessing and integrating multiple datasets, I used rule-based segmentation to define four distinct customer tiers based on their transaction values. This approach allowed for a clear, immediate understanding of our customer base, paving the way for targeted marketing and resource allocation. The analysis culminated in a set of dashboards designed to provide a real-time insights on our customer base. 
+This analysis empowered Crimsonloop to move beyond a one-size-fits-all strategy by segmenting our diverse customer base into four distinct tiers. My findings reveal that two customer segments, the Premium and Loyalty tiers, drive 74% of our revenue. Our high-value segment, customers who have a single-transaction value over $1,000, represent only 2.8% of our customers but contribute 13% of revenue. The analysis goes further to define and validate customer lifetime value (LTV), revealing that the Elite tier, despite its small size, holds the highest average LTV, solidifying their status as a key business asset. By focusing on these high-value segments, we can develop targeted, high-impact marketing strategies, ultimately enhancing customer retention and driving significant revenue growth.
 
 
-# Key Discoveries & Actionable Insights:
+# My Approach: From Hypothesis to Actionable Insights
 
-## 1. **Unveiling High-Value Customers & Segmentation:**
-   
-Initial analysis revealed a right skewed distribution of sales and a "long tail" between the 99 percentile and the maximum transaction value, signalling high-value customer opportunities. This prompted me to perform customer segmentation and analyze their unique behaviors and preferences. Click [here](https://github.com/machaniG/machaniG.github.io/blob/master/notebooks/Crimsonloop%20Customer%20segmentation%20%26%20behavior%20analysis.ipynb) for technical implementation of this project.
+My approach to this project was driven by a core hypothesis: **a small but highly valuable segment of customers exists within our long-tail sales distribution, and by identifying and understanding them, we can unlock significant revenue growth.**
+After preprocessing and integrating multiple datasets, I used a two-pronged approach to validate this hypothesis. First, I used a **rule-based segmentation** to define four distinct customer tiers based on their transaction values. This allowed for a clear, immediate understanding of our customer base, paving the way for targeted marketing and resource allocation.
 
-The Elite segment is made of 41 customers out of 1468 of our customers, representing only 2.7%. They are returning customers who buy products worth at least $1,000 per transaction and generated 13.1% of revenue in 2019. As illustrated in the *sales dashboard below*, the average transaction value for Elite customers is $98.4 while that of the Premium and Loyalty tiers are $72.3 and $63.5, respectively. While our two leading customer segments, the Premium and Loyalty tiers, drive 38.1% and 36.4% of our revenue respectively, they have 12 and 6 times more customers than the Elite tier. This implies that the Elite tier represent a small but extremely valuable segment if targeted with personalized offers and exclusive services can drive significant revenue growth. The Premium and Loyalty customers are critical for sustaining and growing the business. Understanding their preferences, purchase patterns, and demographics (e.g., location, gender) can help to tailor marketing and retention strategies.
-
-![alt text](/img/sales_insights.png "sales dashboard")
-
-
-## 2. **Uncovering Product Preferences:**
-
-Analysis of product category revealed that a single category, **Nest-USA**, **generates 55.1% of our revenue**. However, we sold more Office products followed by Apparel and Drinkware. Office category are our most selling products, leading with 88k units sold but generates only 6% of total revenue while  Nest-USA is number 5 in terms of units sold. This revenue gap is understandable because the average unit cost for Nest-USA is $124.3 while that of Office products is $3.8. The dashboard and chart below show Office, Apparel, Drinkware, Nest, Nest-USA, Lifestyle, and Bags are our most selling products. The inventory manager can leverage this insights for procurement to balance supply and demand.
-
-![alt text](/img/category_insights.png "category dashboard")
-
-<img width="1535" height="842" alt="image" src="https://github.com/user-attachments/assets/76f373f7-05bb-4e8f-934b-7b3d5c5cc44b" />
+To validate these business-driven segments, I applied **K-means clustering**, an unsupervised learning algorithm, to see if the data naturally formed similar groups. The results were compelling:
+- Cluster 3 showed a strong alignment with the Elite Tier, reinforcing its distinctiveness.
+- The Loyalty, Premium, and Regular Tiers were primarily distributed across Cluster 0 and Cluster 2, suggesting a natural grouping of mid-to-low value customers that could be explored for more granular targeting.
 
 
-## 3. **Geographic and Gender Insights:**
 
-Most of our revenue come from California and Chicago and the two states accounted for 65% of total revenue in 2019. However, as seen in the dashboards below, the two regions have 920 out of our 1468 customers and more than half of our high value customers, that is; 28 Elite, 159 Premium, and 313 Loyalty customers. 
-
-
-## 4. **Critical Temporal Trends:**
-
-After analyzing temporal trends over time, I uncovered a notable spike of Elite sales in April. A deep dive into the Elite transactions further revealed that such high-value transactions cluster on Thursdays and Fridays, and crucially, **no Elite transaction on Tuesdays**; highlighting a clear pattern for operational adjustments.  
-
-Apparel and Notebooks & Journals are the leading categories sold to elite customers
-
-## 5. **Product Preferences of High-Value Buyers:**
-   
-A significant portion of Elite revenue derive from **Apparel** and **Notebooks & Journals** categories. Conversely, **Nest products** showed negligible sales among Elite customers. Bulky orders predominantly originated from Chicago and California, aligning with their high transaction volumes.
-
-*To understand product preferences, the charts below illustrate the **product categories driving VIP sales** and the **quantity sold to VIPs by category and location.***
-
-![alt text](/img/vipsales_bycategory.png "Horizontal Bars") 
-![alt text](/img/vip_quantiy_bycategory.png "Bar Plot")
+This synergy between the business rules and the data's inherent structure provided a strong foundation for the analysis. The project culminated in a set of dashboards designed to provide real-time insights into our customer base.
 
 
-## 4. **Critical Temporal Trends:**
-   
-Analysis of daily and weekly transaction patterns revealed significant anomalies:
+# Key Discoveries & Actionable Insights
 
-- A notable **spike in high-value sales occurred in April.**
-- **Most VIP transactions clustered on Thursdays and Fridays.**
-- Crucially, **no VIP transactions occurred on Tuesdays**, highlighting a clear pattern for operational adjustments.
+## 1. Unveiling High-Value Customers & Segmentation
 
-*These critical **temporal patterns**, including monthly spikes and daily variations, are clearly visualized in the **VIP Sales and Transactions Over Time ** and **VIP Transactions by Day of the Week** charts below.*
+Initial analysis revealed a right-skewed distribution of sales and a "long tail" between the 99th percentile and the maximum transaction value, signaling high-value customer opportunities. This prompted me to perform customer segmentation and analyze their unique behaviors and preferences.
+My rule-based segmentation identified the **Elite segment** as customers who have at least one single-transaction value over $1,000. This group is made up of 41 customers out of 1,468, representing only 2.8% of our customer base. They are all returning customers and generated 13.1% of revenue in 2019.
+While this segment is defined by their high-value purchases, it's important to note that the average transaction value for the Elite tier is $115.31. This is because this average includes all their transactions, not just the single large ones that qualified them for the tier. Their average transaction value is still significantly higher than the Premium and Loyalty tiers, whose averages are $78.01 and $67.47, respectively.
+
+![alt text](/img/vip_transactions_overtime.png "Line Graph")
+
+
+## 2. Customer Lifetime Value (LTV) Analysis
+
+Building on the initial segmentation, I calculated the **Customer Lifetime Value (LTV)** for each segment. While the rule-based segmentation identified customers based on a single high-value transaction, LTV provides a more holistic view by summing the total revenue generated by each customer over their entire purchasing history. This analysis confirmed that our Elite Tier customers are not only high-value on a per-transaction basis but are also our most valuable customers overall.
+The analysis revealed a clear hierarchy of value:
+   -	**Elite Tier:** $28,227.58
+   -	**Premium Tier:** $10,796.32
+   -	**Loyalty Tier:** $4,572.79
+   -	**Regular Tier:** $1,347.56
+This finding further justifies a concentrated effort on retention and personalized marketing for the Elite group. The Premium (17.6% of customers) and Loyalty (34.6% of customers) tiers are our largest revenue drivers, contributing 36.4% and 38.1% of total revenue, respectively. Conversely, the Regular tier, which accounts for 45% of our customers, generates the least amount of revenue at 12.5%. The key takeaway is to develop distinct strategies for each segment: nurture the high-value Elite customers for long-term loyalty and growth, while implementing scale-friendly, efficient marketing for the mid-to-low value segments.
+
+![alt text](/img/vip_transactions_overtime.png "Line Graph")
+
+
+## 3. Uncovering Product Preferences
+
+The analysis revealed that a single product category, **Nest-USA**, generates 55.1% of our revenue. However, the most units sold were in the **Office** category, followed by Apparel and Drinkware. While the Office category leads with 88k units sold, it generates only 6% of total revenue due to its low average unit cost of $3.8, compared to Nest-USA's average unit cost of $124.3. The inventory manager can leverage this insight for procurement to balance supply and demand.
+
+![alt text](/img/vip_transactions_overtime.png "Line Graph")
+
+![alt text](/img/vip_transactions_overtime.png "Line Graph")
+
+
+## 4. Geographic and Gender Insights
+
+Most of our revenue comes from **California and Chicago**, which accounted for 65% of total revenue in 2019. These two regions have 920 out of our 1,468 customers and more than half of our high-value customers, that is; 28 Elite, 159 Premium, and 313 Loyalty customers.
+
+![alt text](/img/vip_transactions_overtime.png "Line Graph")
+
+![alt text](/img/vip_transactions_overtime.png "Line Graph")
+
+
+## 5. Critical Temporal Trends
+
+After analyzing temporal trends over time, I uncovered a notable spike of sales in 5th & 18th April, 18th July, and 27th November with 5th April leading in revenue generated. However, we generated more revenue in November ($406,866) followed by October ($367,271) and December ($366,280). June was the lowest month with only $223,357 in sales. Although there are spikes of sales in April and July, the sum of sales is only $357,159 for April and $332,562 for July. Further analysis revealed that transactions cluster on Wednesdays through Sunday with a peak on Fridays, highlighting a clear pattern for operational adjustments. We expect little traffic on Mondays and Tuesdays. This clear seasonality in sales can be used by both the marketing and supply chain departments to optimize timing for promotions and restocking.
+
+*These critical **temporal patterns**, including monthly spikes and daily variations, are clearly visualized in the charts below.*
 
 ![alt text](/img/vip_sales_overtime.png "Line Graph")
-![alt text](/img/vip_transactions_overtime.png "Line Graph")
+
+
+# What's Missing to Make This a Great Project?
+
+To take this project to the next level, I would focus on two key areas:
+- Predictive Analysis: I would build a model to predict which customers are likely to transition into the Elite tier based on their purchase history and demographic data. This would allow for proactive, not just reactive, targeting.
+- A/B Testing Framework: I would design a framework for A/B testing targeted marketing campaigns. This would include defining key performance indicators (KPIs) and a clear methodology for measuring the impact of personalized offers on the Elite tier's revenue contribution.
+
+This project is a strong demonstration of my ability to use data to solve a clear business problem. The combination of hypothesis-driven analysis, multiple methodologies, and actionable recommendations shows a comprehensive understanding of the data science lifecycle.
+
+
 ![alt text](/img/transactions_by_dayofweek.png "Line Graph")
 
-*Temporal trends were identified by grouping VIP transactions by date and day of the week:*
-
-```ruby
-# Analyze daily transaction counts and sales sums for VIPs
-daily_counts = vip.groupby(vip["Transaction_Date"].dt.date).size().reset_index(name="transaction_count")
-daily_sales = vip.groupby(vip["Transaction_Date"])["net_sales"].sum().reset_index()
-
-# Determine transaction counts by day of the week
-vip["DayOfWeek"] = vip["Transaction_Date"].dt.day_name()
-day_counts = vip["DayOfWeek"].value_counts().reindex([
-    "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"
-]).reset_index()
-day_counts.columns = ["DayOfWeek", "TransactionCount"]
-```
-
-5. **Comprehensive KPI Comparison Across Segments:**
-   
-A final Power BI dashboard compared key KPIs across all four customer segments, offering a holistic view:
-
-- **Loyalty and Premium groups** were the primary revenue drivers.
-- Chicago and California led in net sales.
-- Office products were the top category in quantity sold.
-- Overall, more female customers than male across all segments, with a smaller proportion of one-time buyers in the Regular group.
-
-This dashboard provided a centralized view for ongoing strategic monitoring.
-
-*Finally, the **Business Performance and Segment Insights Dashboard** below offers a comprehensive, interactive overview of key KPIs across all customer segments, serving as a centralized strategic monitoring tool.*
 
 
-![alt text](/img/ecommerce_dashboard.png "Dashboard")
 
 
-# Business Impact:
+# Technical Implementation:
 
-This project provided Crimsonloop with a granular, data-driven understanding of their customer base, enabling them to:
-
-- **Optimize Marketing Strategies:** Tailor campaigns with precision based on segment-specific preferences, locations, and purchasing habits, increasing conversion and retention.
-- **Enhance Resource Allocation:** Optimize staffing and inventory management by anticipating high-value sales spikes (e.g., in April, on Thursdays/Fridays) and low activity periods (e.g., Tuesdays).
-- **Drive Revenue Growth:** Focus efforts on high-potential segments and product categories, leading to more efficient sales efforts.
-- **Improve Customer Experience:** Develop personalized offers and loyalty programs that resonate with different customer tiers.
-
-This analysis empowered Crimsonloop to move beyond generic strategies, fostering a truly data-driven approach to customer relationship management and business growth.
-
-# Technical Details & Full Codebase:
-
-This section provides more technical details and serves as a gateway to the complete codebase.
-
-The project leveraged Python's extensive data science ecosystem. For data manipulation and analysis, **Pandas and NumPy** were used. **Matplotlib, Seaborn, and Plotly Express** facilitated detailed data visualization and exploration, leading to the insights presented above. The final holistic KPI comparison was developed in **Power BI.**
-
-For the full codebase, including all data preparation steps, detailed analytical scripts, and additional visualizations, please visit the dedicated GitHub repository: [([https://github.com/machaniG/machaniG.github.io/blob/master/notebooks/Crimsonloop%20Customer%20segmentation%20%26%20behavior%20analysis.ipynb](https://github.com/machaniG/machaniG.github.io/blob/master/notebooks/Crimsonloop%20Customer%20segmentation%20%26%20behavior%20analysis.ipynb))]
+Click [here]() for technical implementation of this project in python. I am using a free version of Power BI and therefore I am unable to share the interactive dashboards for you to explore them by yourself.
 
 **Tools Used in Technical Implementation:** Python (Pandas, Scikit-Learn, NumPy, Matplotlib, Seaborn, Plotly), Power BI
