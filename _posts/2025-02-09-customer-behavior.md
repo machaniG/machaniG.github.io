@@ -85,13 +85,6 @@ To take this project to the next level, I would focus on two key areas:
 
 This project is a strong demonstration of my ability to use data to solve a clear business problem. The combination of hypothesis-driven analysis, multiple methodologies, and actionable recommendations shows a comprehensive understanding of the data science lifecycle.
 
-
-![alt text](/img/transactions_by_dayofweek.png "Line Graph")
-
-
-
-
-
 # Technical Implementation:
 
 Click [here](https://github.com/machaniG/machaniG.github.io/blob/master/notebooks/Crimsonloop%20Customer%20segmentation%20%26%20behavior%20analysis.ipynb) for technical implementation of this project in python. I am using a free version of Power BI and therefore I am unable to share the interactive dashboards for you to explore them by yourself.
