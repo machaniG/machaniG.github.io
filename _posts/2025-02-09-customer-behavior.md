@@ -94,6 +94,6 @@ This project is a strong demonstration of my ability to use data to solve a clea
 
 # Technical Implementation:
 
-Click [here]() for technical implementation of this project in python. I am using a free version of Power BI and therefore I am unable to share the interactive dashboards for you to explore them by yourself.
+Click [here](https://github.com/machaniG/machaniG.github.io/blob/master/notebooks/Crimsonloop%20Customer%20segmentation%20%26%20behavior%20analysis.ipynb) for technical implementation of this project in python. I am using a free version of Power BI and therefore I am unable to share the interactive dashboards for you to explore them by yourself.
 
 **Tools Used in Technical Implementation:** Python (Pandas, Scikit-Learn, NumPy, Matplotlib, Seaborn, Plotly), Power BI
