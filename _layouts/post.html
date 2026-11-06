@@ -1,0 +1,59 @@
+---
+layout: default
+---
+{% assign img = page.image | prepend: "/img/" | replace: "/img//", "/img/" %}
+<div class="container">
+    <div class="row">
+        <div class="col col-12">
+            <div class="post-image-box">
+                {% if page.image and page.image != "" %}<div class="post-image" style="background-image: url({{ img | relative_url }})"></div>{% else %}<div class="post-image x-ph"></div>{% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <article class="col col-12 col-t-12 post">
+            <div class="post-content">
+                <div class="post-head">
+                    <p class="x-crumb"><a href="{{ '/#projects' | relative_url }}">← All projects</a></p>
+                    <div class="post-tag">
+                        {% if page.status == "in-progress" %}<span class="tag">In progress</span>{% endif %}
+                        {% for tag in page.tags %}<a href="{{ site.baseurl }}/tags#{{tag}}" class="tag">{{ tag }}</a>{% endfor %}
+                    </div>
+                    <h1 class="post-title">{{ page.title | escape }}</h1>
+                    <div class="x-actions">
+                        {% if page.demo and page.demo != "" %}<a class="x-btn" href="{{ page.demo }}" target="_blank" rel="noopener">Live demo ↗</a>{% endif %}
+                        {% if page.github and page.github != "" %}<a class="x-btn{% if page.demo and page.demo != '' %} ghost{% endif %}" href="{{ page.github }}" target="_blank" rel="noopener">View code on GitHub</a>{% endif %}
+                        <a class="x-btn ghost" href="{{ '/#contact' | relative_url }}">Discuss a similar project</a>
+                    </div>
+                    <div class="x-glance">
+                        {% if page.client %}<div><small>Context</small><b>{{ page.client }}</b></div>{% endif %}
+                        {% if page.metric %}<div><small>Headline result</small><b class="hot">{{ page.metric }}</b></div>{% endif %}
+                        {% if page.role %}<div><small>Role</small><b>{{ page.role }}</b></div>{% endif %}
+                        {% if page.duration %}<div><small>Timeline</small><b>{{ page.duration }}</b></div>{% endif %}
+                        {% if page.decision %}<div class="wide"><small>Decision it enabled</small><b>{{ page.decision }}</b></div>{% endif %}
+                    </div>
+                    {% if page.deliverables %}<div class="x-deliv"><h4>What was delivered</h4><ul>{% for d in page.deliverables %}<li>{{ d }}</li>{% endfor %}</ul></div>{% endif %}
+                </div>
+                <div class="post-body">
+                    {{ content }}
+                </div>
+                {% if page.previous.url or page.next.url %}
+                <div class="post-navigation">
+                    {% if page.previous.url %}
+                    <a href="{{ site.baseurl }}{{page.previous.url}}" class="prev"><div class="post-nav-arrow"><i class="ion ion-ios-arrow-round-back"></i> Previous </div></a>
+                    {% else %}
+                    <a href="#" class="prev disabled"><div class="post-nav-arrow"><i class="ion ion-ios-arrow-round-back"></i> Previous </div></a>
+                    {% endif %}
+                    {% if page.next.url %}
+                    <a href="{{ site.baseurl }}{{page.next.url}}" class="next"><div class="post-nav-arrow">Next <i class="ion ion-ios-arrow-round-forward"></i></div></a>
+                    {% else %}
+                    <a href="#" class="next disabled"><div class="post-nav-arrow">Next <i class="ion ion-ios-arrow-round-forward"></i></div></a>
+                    {% endif %}
+                </div>
+                {% endif %}
+            </div>
+        </article>
+    </div>
+</div>

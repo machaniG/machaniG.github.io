@@ -1,0 +1,28 @@
+# EXPERIENCE: your jobs and your education. Copy a block to add another.
+jobs:
+  - when: "2021 – now"
+    role: Freelance Analytics Engineer
+    org: Self-employed
+    points:
+      - Built dbt models and metric layers for retail, SaaS and logistics teams
+      - Replaced spreadsheet reporting with tested, documented dashboards
+      - Prepared data and test sets for AI assistants
+  - when: "2018 – 2021"
+    role: Senior Data Analyst
+    org: Company Name
+    points:
+      - Owned the revenue and retention reporting used by leadership
+      - Introduced version control and testing for the analytics team
+  - when: "2016 – 2018"
+    role: Data Analyst
+    org: Company Name
+    points:
+      - Built dashboards and analyses for the product and finance teams
+
+education:
+  - name: MSc Data Science
+    detail: University Name, 2016
+  - name: BSc Statistics
+    detail: University Name, 2014
+  - name: dbt Analytics Engineering Certification
+    detail: "2023"

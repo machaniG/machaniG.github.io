@@ -1,0 +1,19 @@
+<!-- js here -->
+<script src="{{ "/assets/js/jquery-3.3.1.min.js" | relative_url }}"></script>
+<script src="{{ "/assets/js/jquery.waitforimages.min.js" | relative_url }}"></script>
+<script src="{{ "/assets/js/jquery.fitvids.js" | relative_url }}"></script>
+<script src="{{ "/assets/js/common.js" | relative_url }}"></script>
+{% if site.roles %}
+<script>
+(function(){
+  var R={{ site.roles | jsonify }},tw=document.getElementById('tw');
+  if(!tw||!R.length)return;
+  if(window.matchMedia&&matchMedia('(prefers-reduced-motion:reduce)').matches){tw.textContent=R[0];return}
+  var i=0,j=0,del=false;
+  (function tick(){var w=R[i];tw.textContent=w.slice(0,j);
+    if(!del&&j===w.length){del=true;return setTimeout(tick,1600)}
+    if(del&&j===0){del=false;i=(i+1)%R.length}
+    j+=del?-1:1;setTimeout(tick,del?35:70)})();
+})();
+</script>
+{% endif %}
