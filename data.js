@@ -44,16 +44,16 @@ const EXPERIENCE=[
  {when:"2018 – 2021",role:"Senior Data Scientist",org:"Company Name",pts:["Owned the forecasting platform used by 120 stores","Mentored three junior data scientists"]},
  {when:"2016 – 2018",role:"Data Analyst",org:"Company Name",pts:["Built dashboards and experiment analyses for the product team"]}
 ];
-const EDU=[["MSc Data Science","University Name, 2016"],["BSc Statistics","University Name, 2014"],["AWS Certified Machine Learning, Specialty","2023"]];
+const EDU=[["PhD Molecular Biology", "University of Potsdam, Nov, 2023"],["MSc Biotechnology","Kenyatta University, Aug, 2018"],["Data Analytics with Python & SQL, ReDi School of Digital Integration","2024"]];
 
 
 /* TOOLS I USE: shown in groups on the home page. Rename groups, add or remove items freely. */
 const TOOLS=[
- {group:"Languages",items:["Python","SQL","R","Bash"]},
+ {group:"Languages",items:["Python","SQL","R"]},
  {group:"Machine learning and AI",items:["scikit-learn","PyTorch","XGBoost","LangChain","Hugging Face"]},
  {group:"Data and pipelines",items:["pandas","dbt","Airflow","Spark","BigQuery","Snowflake"]},
  {group:"Deployment and cloud",items:["Docker","AWS","GCP","FastAPI","MLflow","GitHub Actions"]},
- {group:"Analysis and sharing",items:["Streamlit","Jupyter","Tableau","Power BI"]}
+ {group:"Analysis and sharing",items:["Streamlit","Jupyter","Tableau","Power BI", "Looker Studio"]},
 ];
 
 /* WRITING / NOTES (optional): leave the list empty to hide the section. Example entry:
@@ -75,7 +75,7 @@ const PALETTES = {
     light:{bg:"#f6f0e4",surface:"#fffaf0",ink:"#1d2a23",muted:"#646f63",line:"#e2d8c3",a:"#1f7a57","a-ink":"#ffffff",c2:"#d9552b",c3:"#2b59c3",grid:"rgba(31,122,87,.08)"},
     dark: {bg:"#121e19",surface:"#1a2a23",ink:"#f1ece0",muted:"#9fb0a5",line:"#2c3f35",a:"#5fd1a1","a-ink":"#0f1c16",c2:"#ff8a5c",c3:"#7ea2ff",grid:"rgba(95,209,161,.07)"}},
   indigo:{ // soft lavender + electric violet
-    light:{bg:"#f3f1ff",surface:"#ffffff",ink:"#17143a",muted:"#5e5a85",line:"#dcd8f3",a:"#5b3df5","a-ink":"#ffffff",c2:"#ff4f8b",c3:"#14b8a6",grid:"rgba(91,61,245,.08)"},
+    light:{bg:"#f3f1ff",surface:"#ffffff",ink:"#2e2967",muted:"#5e5a85",line:"#dcd8f3",a:"#5b3df5","a-ink":"#ffffff",c2:"#ff4f8b",c3:"#14b8a6",grid:"rgba(91,61,245,.08)"},
     dark: {bg:"#0d0b24",surface:"#16133a",ink:"#ece9ff",muted:"#a29fd0",line:"#2a2660",a:"#9d8cff","a-ink":"#0d0b24",c2:"#ff7fae",c3:"#3ddbc8",grid:"rgba(157,140,255,.08)"}},
   ocean:{ // pale aqua + deep teal
     light:{bg:"#eaf6f7",surface:"#ffffff",ink:"#0b2a33",muted:"#4d6b73",line:"#cde4e7",a:"#0a7f95","a-ink":"#ffffff",c2:"#f26b3a",c3:"#6b4de6",grid:"rgba(10,127,149,.08)"},
