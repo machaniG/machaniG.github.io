@@ -9,7 +9,7 @@ layout: default
 {% assign featured = done | where: "featured", true %}
 {% assign rest = done | where_exp: "p", "p.featured != true" %}
 {% assign ordered = featured | concat: rest %}
-{% assign wip = site.posts | where: "status", "in-progress" %}
+{% assign wip = site.posts | where: "status", "in-progress" %} 
 
 <nav class="x-nav" aria-label="Sections"><div class="container">
   <a href="#path">The path</a><a href="#ai">AI-ready</a><a href="#projects">Projects</a><a href="#deliverables">Deliverables</a><a href="#services">Services</a><a href="#tools">Tools</a><a href="#experience">Experience</a><a href="#about">About</a><a href="#contact">Contact</a>
