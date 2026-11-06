@@ -3,7 +3,7 @@
 # ===================================================================
 remote_theme: analytics-link/analytics-link.github.io
 
-plugins:
+plugins: 
   - jekyll-remote-theme
   - jekyll-sitemap
 
