@@ -4,8 +4,8 @@
    ===================================================================== */
 
 /* ---------- 1. LOOK AND FEEL ---------- */
-const THEME = "amber";   // "amber" | "neon" | "sand" | "indigo" | "ocean" | "mono"   (see PALETTES at the bottom to tweak or add your own)
-const MODE  = "dark";   // first-visit mode: "dark", "light", or "auto" (follow the visitor's system). The ◐ button always lets visitors switch.
+const THEME = "indigo";   // "amber" | "neon" | "sand" | "indigo" | "ocean" | "mono"   (see PALETTES at the bottom to tweak or add your own)
+const MODE  = "light";   // first-visit mode: "dark", "light", or "auto" (follow the visitor's system). The ◐ button always lets visitors switch.
 
 /* Visual effects: set any to false to switch it off */
 const FX = {
