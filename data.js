@@ -30,18 +30,53 @@ const ME={
 };
 const SERVICES=[
  {id:"strategy",color:"var(--a)",title:"AI strategy and roadmap",blurb:"Find where AI will pay off in your business and where it won't.",
-  gets:["Ranked list of use cases with cost and impact estimates","Data readiness report","A 6 to 12 month roadmap your team can follow"],time:"2 to 3 weeks",repo:"https://github.com/yourusername/ai-opportunity-scoring"},
- {id:"ml",color:"var(--c2)",title:"Predictive models and forecasting",blurb:"Churn, demand, pricing and risk models built for decisions, not leaderboards.",
-  gets:["Baseline and tuned models with clear evaluation","Explainability so stakeholders trust the output","A tested pipeline that runs on new data"],time:"4 to 8 weeks",repo:"https://github.com/yourusername/demand-forecasting"},
- {id:"llm",color:"var(--c3)",title:"LLM and RAG applications",blurb:"Chat, search and document tools grounded in your own data.",
-  gets:["Retrieval pipeline over your documents","Evaluation set to measure answer quality","Guardrails, cost controls and a simple front end"],time:"4 to 10 weeks",repo:"https://github.com/yourusername/rag-document-qa"},
- {id:"mlops",color:"var(--a)",title:"Data pipelines and MLOps",blurb:"Make models reliable: deployment, monitoring and retraining.",
-  gets:["CI/CD for models and data","Drift and performance monitoring dashboards","Runbooks so your team can operate it"],time:"3 to 6 weeks",repo:"https://github.com/yourusername/mlops-template"}
+  gets:["Ranked list of use cases with cost and impact estimates","Data readiness report","A 6 to 12 month roadmap your team can follow"],time:"2 to 3 weeks",
+  repo:"https://github.com/machaniG/ai-opportunity-scoring"},
+ 
+  {id:"data",color:"var(--a)",title:"Data foundation assessment",blurb:"Understand what you have. Audit your existing data environment before building on it.",
+    gets:["Audit of data sources and systems",
+      "Fragmentation, inconsistency and data quality findings",
+      "Map of how your datasets relate to each other",
+      "Gaps to close before AI use cases can work",
+      "Data landscape assessment and prioritised improvement roadmap"],time:"2 to 3 weeks",
+    repo:"https://github.com/machaniG/ai-opportunity-scoring"},
+ 
+  {id:"data-impl",color:"var(--a)",title:"Data foundation implementation: dbt modeling",blurb:"Make your data usable. Scalable, tested and documented dbt models, running in production.",
+    gets:[
+      "Transformation pipelines that clean and connect your fragmented data sources",
+      "Consistent, scalable dbt models, deployed and running in production",
+      "Automated data quality tests on every model so bad data is caught before it reaches dashboards or AI models",
+      "Centralised metrics and a semantic layer, so everyone uses the same definitions",
+      "Documented, model and column descriptions plus lineage, so your team understands what each table means",
+      "A structured, tested and documented data environment"],time:"4 to 8 weeks",
+    repo:"https://github.com/machaniG/ai-opportunity-scoring"},
+
+  {id:"ml",color:"var(--c2)",title:"Predictive models and forecasting",blurb:"Churn, demand, pricing and risk models built for decisions, not leaderboards.",
+    gets:[
+      "Baseline and tuned models with clear evaluation",
+      "Explainability so stakeholders trust the output",
+      "A tested pipeline that runs on new data"],time:"4 to 8 weeks",
+    repo:"https://github.com/yourusername/demand-forecasting"},
+ 
+  {id:"llm",color:"var(--c3)",title:"LLM and RAG applications",blurb:"Chat, search and document tools grounded in your own data.",
+    gets:[
+      "Retrieval pipeline over your documents",
+      "Evaluation set to measure answer quality",
+      "Guardrails, cost controls and a simple front end"
+    ],time:"4 to 10 weeks",repo:"https://github.com/yourusername/rag-document-qa"},
+ 
+  {id:"mlops",color:"var(--a)",title:"Data pipelines and MLOps",blurb:"Make models reliable: deployment, monitoring and retraining.",
+  gets:[
+    "CI/CD for models and data",
+    "Drift and performance monitoring dashboards",
+    "Runbooks so your team can operate it"
+  ],time:"3 to 6 weeks",repo:"https://github.com/yourusername/mlops-template"}
 ];
+
 /* PROJECTS now live in content/projects/*.md. Run  python3 build.py  after editing them. */
 const EXPERIENCE=[
  {when:"Jan 2026 - now",role:"Freelance Data Scientist and Analytics Engineer",org:"Self-employed",
-  pts:["Delivered 7 projects across analytics engineering, entity resolution, schema harmonization and record linkage, predictive analytics, and demand forecasting", "See my work below"]},
+  pts:["Delivered 7 projects across analytics engineering; entity resolution, schema harmonization and record linkage; predictive modeling; and demand forecasting", "See my work below"]},
 
  {when:"Aug 2020 – Feb 2024",role:"Research Associate – Data & Analytics",org:"Max Planck Institute of Molecular Plant Physiology",
   pts:[
@@ -50,8 +85,7 @@ const EXPERIENCE=[
     "Designed and implemented quantitative data analyses utilizing advanced statistical modeling, hypothesis testing, regression, dimensionality reduction, clustering, inverse prediction methods to various datasets including; physiological datasets, transcriptomics, metabolomics, enzymatic reactions, biochemical assays datasets. Isolated key factors associated with plant health and nutritional status. Discovered significant feature interactions driving improved functional response to nutrient-related core KPIs (e.g., increased weight, transcripts & metabolites).",
     "Designed and carried out multi-factor experiments and data collection strategies, integrating disparate datasets from various laboratory measurements, greenhouse physiological screening, and publicly available online datasets; translating raw experimental data into functional mechanisms. This helped to understand nutritional stress regulation in plants as interconnected networks rather than isolated parts.",
     "Created and managed structured projects metadata including experimental testing conditions, sample identifiers and associated metadata records, variable manipulations, data acquisition and transformation processes; making data interpretation and traceability easier throughout my tenure and beyond."
-  ]},
- {when:"2016 – 2018",role:"Data Analyst",org:"Company Name",pts:["Built dashboards and experiment analyses for the product team"]}
+  ]}
 ];
 const EDU=[
   ["PhD Molecular Biology", "University of Potsdam, Nov, 2023"],
@@ -87,7 +121,7 @@ const PALETTES = {
     light:{bg:"#f6f0e4",surface:"#fffaf0",ink:"#1d2a23",muted:"#646f63",line:"#e2d8c3",a:"#1f7a57","a-ink":"#ffffff",c2:"#d9552b",c3:"#2b59c3",grid:"rgba(31,122,87,.08)"},
     dark: {bg:"#121e19",surface:"#1a2a23",ink:"#f1ece0",muted:"#9fb0a5",line:"#2c3f35",a:"#5fd1a1","a-ink":"#0f1c16",c2:"#ff8a5c",c3:"#7ea2ff",grid:"rgba(95,209,161,.07)"}},
   indigo:{ // soft lavender + electric violet
-    light:{bg:"#f3f1ff",surface:"#ffffff",ink:"#2e2967",muted:"#5e5a85",line:"#a096df",a:"#5b3df5","a-ink":"#ffffff",c2:"#ff4f8b",c3:"#14b8a6",grid:"rgba(91,61,245,.08)"},
+    light:{bg:"#b98dfb",surface:"#ffffff",ink:"#2e2967",muted:"#1e1e37",line:"#a096df",a:"#5b3df5","a-ink":"#ffffff",c2:"#ff4f8b",c3:"#14b8a6",grid:"rgba(91,61,245,.08)"},
     dark: {bg:"#0d0b24",surface:"#16133a",ink:"#ece9ff",muted:"#a29fd0",line:"#2a2660",a:"#9d8cff","a-ink":"#0d0b24",c2:"#ff7fae",c3:"#3ddbc8",grid:"rgba(157,140,255,.08)"}},
   ocean:{ // pale aqua + deep teal
     light:{bg:"#eaf6f7",surface:"#ffffff",ink:"#0b2a33",muted:"#4d6b73",line:"#cde4e7",a:"#0a7f95","a-ink":"#ffffff",c2:"#f26b3a",c3:"#6b4de6",grid:"rgba(10,127,149,.08)"},
