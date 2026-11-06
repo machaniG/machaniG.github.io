@@ -25,8 +25,8 @@ const HAND_NOTE = "try moving your cursor";   // handwritten note beside the her
    Everything else (your name, services, experience, tools) is still edited below.
 */
 const ME={
-  name:"Your Name", initials:"YN", email:"you@example.com", photo:"", cv:"#",
-  socials:[["GitHub","https://github.com/machaniG"],["LinkedIn","https://linkedin.com/in/yourusername"],["Kaggle","https://kaggle.com/yourusername"],["X","https://x.com/yourusername"]],
+  name:"Your Name", initials:"MFG", email:"gechembama@gmail.com", photo:"", cv:"#",
+  socials:[["GitHub","https://github.com/machaniG"],["LinkedIn","https://linkedin.com/in/fmachani"],["Kaggle","https://kaggle.com/machanif"],["X","https://x.com/machanigechemba"]],
 };
 const SERVICES=[
  {id:"strategy",color:"var(--a)",title:"AI strategy and roadmap",blurb:"Find where AI will pay off in your business and where it won't.",
