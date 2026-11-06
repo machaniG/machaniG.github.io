@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Project summary</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%238b5cf6'/%3E%3Ccircle cx='12' cy='13' r='4' fill='white'/%3E%3Ccircle cx='21' cy='20' r='3' fill='%23f472b6'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Instrument+Sans:wght@400;500;600&family=Sora:wght@600;700;800&family=Caveat:wght@600&display=swap" rel="stylesheet">
+<script>try{var t=localStorage.getItem('theme')||(matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light');document.documentElement.dataset.theme=t}catch(e){document.documentElement.dataset.theme='light'}</script>
+<link rel="stylesheet" href="style.css">
+<script src="data.js"></script>
+<script src="projects.js"></script>
+</head>
+<body>
+<nav><div class="wrap">
+  <a class="logo" href="index.html"><i></i><span id="brand"></span></a>
+  <a class="l" href="index.html#services">Services</a><a class="l" href="index.html#work">Work</a><a class="l" href="index.html#experience">Experience</a><a class="l" href="index.html#about">About</a>
+  <button class="btn ico" id="theme" aria-label="Switch colour theme">◐</button>
+  <a class="btn p s" href="index.html#contact">Get in touch</a>
+</div></nav>
+
+<main class="wrap ph" id="main"></main>
+
+<footer><div class="wrap"><span id="copy"></span><span id="soc"></span></div></footer>
+
+<script>
+const $=s=>document.querySelector(s), esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+$('#brand').textContent=ME.name;
+$('#copy').textContent="© "+new Date().getFullYear()+" "+ME.name;
+$('#soc').innerHTML=ME.socials.map(([n,u])=>'<a href="'+esc(u)+'" target="_blank" rel="noopener" style="margin-left:16px">'+esc(n)+'</a>').join('');
+$('#theme').onclick=()=>{const t=document.documentElement.dataset.theme=='dark'?'light':'dark';document.documentElement.dataset.theme=t;try{localStorage.setItem('theme',t)}catch(e){}};
+
+const q=new URLSearchParams(location.search), main=$('#main');
+const pi=PROJECTS.findIndex(p=>p.id==q.get('p')), si=SERVICES.findIndex(s=>s.id==q.get('s'));
+const tags=a=>'<div class="tags">'+a.map(t=>'<span class="tag k">'+esc(t)+'</span>').join('')+'</div>';
+const glance=a=>'<div class="glance">'+a.filter(x=>x[1]).map((x,i)=>'<div><small>'+esc(x[0])+'</small><b'+(x[2]?' class="hot"':'')+'>'+esc(x[1])+'</b></div>').join('')+'</div>';
+const btn=(href,label,cls,ext)=>'<a class="btn '+(cls||'')+'" href="'+esc(href)+'"'+(ext?' target="_blank" rel="noopener"':'')+'>'+label+'</a>';
+
+if(pi>=0){
+  const p=PROJECTS[pi], n=PROJECTS.length, prev=PROJECTS[(pi+n-1)%n], next=PROJECTS[(pi+1)%n];
+  document.title=p.title+' · '+ME.name;
+  main.innerHTML=
+   '<a class="crumb" href="index.html#work">← All work</a>'+
+   ((p.status=='in-progress'||p.cat)?'<br><span class="tag">'+esc(p.status=='in-progress'?'In progress':p.cat)+'</span>':'')+
+   '<h1>'+esc(p.title)+'</h1><p class="lead muted">'+esc(p.result)+'</p>'+
+   '<div class="cta">'+(p.demo?btn(p.demo,'Live demo ↗','p',1):'')+(p.repo?btn(p.repo,'View code on GitHub',p.demo?'':'p',1):'')+btn('index.html#contact','Discuss a similar project')+'</div>'+
+   '<div class="pv">'+(p.cover?'<img src="'+esc(p.cover)+'" alt="">':thumb(p.kind,p.seed))+'</div>'+
+   glance([['Context',p.who],['Headline result',p.metric,1],['Role',p.role||'Data scientist'],['Timeline',p.time]])+
+   '<div class="body"><article>'+
+     p.sections.map(s=>'<div><h2>'+esc(s.h)+'</h2>'+s.html+'</div>').join('')+
+     (p.shots&&p.shots.length?'<div><h2>Screenshots</h2><div class="shots">'+p.shots.map(x=>'<img src="'+esc(x)+'" alt="" loading="lazy">').join('')+'</div></div>':'')+
+   '</article><aside class="side"><h3>Tools used</h3>'+tags(p.stack)+
+     (p.repo?btn(p.repo,'Source code ↗','',1):'')+(p.demo?btn(p.demo,'Live demo ↗','',1):'')+'</aside></div>'+
+   '<div class="pn"><a href="project.html?p='+prev.id+'"><small>← Previous project</small><b>'+esc(prev.title)+'</b></a><a class="r" href="project.html?p='+next.id+'"><small>Next project →</small><b>'+esc(next.title)+'</b></a></div>';
+}else if(si>=0){
+  const s=SERVICES[si], rel=PROJECTS.filter(p=>p.svc==s.id);
+  document.title=s.title+' · '+ME.name;
+  main.innerHTML=
+   '<a class="crumb" href="index.html#services">← All services</a><br><span class="tag">Service</span>'+
+   '<h1>'+esc(s.title)+'</h1><p class="lead muted">'+esc(s.blurb)+'</p>'+
+   '<div class="cta">'+btn('index.html#contact','Book a discovery call','p')+(s.repo?btn(s.repo,'See a code example ↗','',1):'')+'</div>'+
+   glance([['Typical timeline',s.time],['Deliverables',s.gets.length+' key outputs'],['Starts with','Free 30 minute call']])+
+   '<div class="body"><article><div><h2>What you get</h2><ul>'+s.gets.map(g=>'<li>'+esc(g)+'</li>').join('')+'</ul></div>'+
+   '<div><h2>How it works</h2><p>We start with a free discovery call, then I send a written plan with a fixed scope and price. You see working demos every week, and you keep all the code at handover.</p></div>'+
+   (rel.length?'<div><h2>Related work</h2><div class="pn" style="margin-top:12px">'+rel.map(p=>'<a href="project.html?p='+p.id+'"><small>'+esc(p.metric)+'</small><b>'+esc(p.title)+'</b></a>').join('')+'</div></div>':'')+
+   '</article><aside class="side"><h3>Ready to start?</h3><p class="muted">Tell me about your data and your goal. I reply within two working days.</p>'+btn('index.html#contact','Get in touch','p')+'</aside></div>';
+}else{
+  document.title='Not found · '+ME.name;
+  main.innerHTML='<a class="crumb" href="index.html">← Home</a><h1>Page not found</h1><p class="lead muted">That project or service does not exist. Check the id in the link against <code>data.js</code>.</p>';
+}
+</script>
+</body>
+</html>

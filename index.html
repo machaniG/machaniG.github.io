@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Your Name · Data Scientist & AI Engineer</title>
+<meta name="description" content="Data scientist and AI engineer for freelance projects and full-time roles. Forecasting, machine learning, LLM applications and MLOps.">
+<!-- SEO / link previews: replace yourusername.github.io with your real address -->
+<link rel="canonical" href="https://yourusername.github.io/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Your Name">
+<meta property="og:title" content="Your Name · Data Scientist & AI Engineer">
+<meta property="og:description" content="Forecasting, machine learning, LLM applications and MLOps for teams that want results in production.">
+<meta property="og:url" content="https://yourusername.github.io/">
+<meta property="og:image" content="https://yourusername.github.io/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="manifest" href="site.webmanifest">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23f58506'/%3E%3Ccircle cx='12' cy='13' r='4' fill='white'/%3E%3Ccircle cx='21' cy='20' r='3' fill='%2338bdf8'/%3E%3C/svg%3E">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Person","name":"Your Name","jobTitle":"Data Scientist and AI Engineer","url":"https://yourusername.github.io/","sameAs":["https://github.com/yourusername","https://linkedin.com/in/yourusername"]},{"@type":"WebSite","name":"Your Name · Data Scientist & AI Engineer","url":"https://yourusername.github.io/"}]}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Instrument+Sans:wght@400;500;600&family=Sora:wght@600;700;800&family=Caveat:wght@600&display=swap" rel="stylesheet">
+<script>try{var t=localStorage.getItem('theme')||(matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light');document.documentElement.dataset.theme=t}catch(e){document.documentElement.dataset.theme='light'}</script>
+<link rel="stylesheet" href="style.css">
+<script src="data.js"></script>
+<script src="projects.js"></script>
+</head>
+<body>
+<nav><div class="wrap">
+  <a class="logo" href="#top"><i></i><span id="brand">Your Name</span></a>
+  <a class="l" href="#work">Projects</a><a class="l" href="#services">Services</a><a class="l" href="#tools">Tools</a><a class="l" id="navw" href="#writing" hidden>Writing</a><a class="l" href="#experience">Experience</a><a class="l" href="#about">About</a>
+  <button class="btn ico" id="theme" aria-label="Switch colour theme">◐</button>
+  <a class="btn p s" href="#contact">Get in touch</a>
+</div></nav>
+
+<header class="hero" id="top"><div class="wrap">
+  <div class="reveal">
+    <span class="avail"><i></i>Open to freelance projects and full-time roles</span>
+    <h1>Data science and AI that holds up in production.</h1>
+    <p class="build"><span class="sr" id="twsr"></span><span aria-hidden="true">I build <span id="tw"></span><i class="caret"></i></span></p>
+    <p class="lead">I help teams turn scattered data into forecasts, models and LLM tools that people actually use, from first audit to deployed system.</p>
+    <div class="cta"><a class="btn p" href="#work">See my work</a><a class="btn" href="#contact">Hire me</a><a class="btn cvl" href="#">Résumé</a></div>
+    <p class="creds">6 years across retail, legal, logistics and manufacturing. Freelance for clients, and open to the right full-time role. Python, SQL, PyTorch, dbt, cloud.</p>
+  </div>
+  <figure class="plot reveal" style="animation-delay:.15s">
+    <span class="hand" id="hand" aria-hidden="true"></span>
+    <canvas id="cv" aria-label="Animated scatter plot of three customer clusters. Move your pointer over it to disturb the points."></canvas>
+    <figcaption><span><b>k-means, k = 3</b> · customer segments</span></figcaption>
+  </figure>
+</div></header>
+
+<section id="work"><div class="wrap">
+  <div class="head"><h2>Projects</h2><p>Real problems, measured results. Hover to pause, then click any card for the full case study and code.</p></div>
+  <h3 class="sub">Completed projects</h3>
+  <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin:0 0 16px"><div id="filters" class="tags" style="gap:8px"></div><button class="chip" id="pp" aria-pressed="false">Pause motion</button></div>
+  <div class="marq" id="marq"><div class="track" id="workGrid"></div></div>
+  <div id="wipWrap" style="margin-top:56px" hidden><h3 class="sub">Currently working on</h3><div class="wipgrid" id="wip"></div></div>
+</div></section>
+
+<section id="services"><div class="wrap">
+  <div class="head"><h2>Services</h2><p>Pick a service to see what you get, how long it takes and a code example.</p></div>
+  <h3 class="sub">What I do</h3>
+  <ul class="svc" id="svcList"></ul>
+  <h3 class="sub" style="margin-top:72px">How I work with clients</h3>
+  <ol class="steps" style="padding:0">
+    <li><h3>Discovery call</h3><p>Free, 30 minutes. We define the problem, the data you have and how success is measured.</p></li>
+    <li><h3>Data audit</h3><p>One week to check quality, find gaps and give you a written plan with a fixed quote.</p></li>
+    <li><h3>Build and iterate</h3><p>Weekly demos on your real data. You see progress, not slide decks.</p></li>
+    <li><h3>Handover</h3><p>Deployed, documented and monitored. Your team can run it without me.</p></li>
+  </ol>
+</div></section>
+
+<section id="tools"><div class="wrap">
+  <div class="head"><h2>Tools I use</h2><p>The stack I work in day to day, from raw data to a deployed product.</p></div>
+  <div class="toolgrid" id="toolGrid"></div>
+</div></section>
+
+<section id="writing" hidden><div class="wrap">
+  <div class="head"><h2>Writing</h2><p>Notes and tutorials on things I have learned along the way.</p></div>
+  <div class="posts" id="posts"></div>
+</div></section>
+
+<section id="experience"><div class="wrap">
+  <div class="head"><h2>Experience</h2><p>Roles, education and certifications. Recruiters can download the full résumé.</p></div>
+  <div class="xp"><div><h3 class="sub">Work history</h3><div class="jobs" id="jobs"></div></div>
+  <aside><h3 class="sub">Education and certifications</h3><ul class="edu" id="edu"></ul><a class="btn cvl" href="#">Download résumé</a></aside></div>
+</div></section>
+
+<section id="about"><div class="wrap about">
+  <div class="photo" id="photo" role="img" aria-label="Portrait placeholder">YN</div>
+  <div>
+    <h2 style="margin-bottom:24px">About me</h2>
+    <p>I'm a data scientist who spent years inside product teams before going independent. I've seen too many good models stall because nobody planned for data quality, monitoring or the people who use them.</p>
+    <p>Now I take on a small number of freelance clients at a time, so every project gets senior attention. I'm also open to full-time roles where I can own problems end to end. Either way, I explain trade-offs in plain language and leave behind code others can run.</p>
+    <div style="height:8px"></div>
+    <a class="btn" href="#experience">See my experience</a>
+  </div>
+</div></section>
+
+<section id="contact" style="padding-top:0"><div class="wrap"><div class="contact">
+  <div>
+    <h2>Have a data problem or a role to fill?</h2>
+    <p>Tell me about the project or the position. I reply within two working days, usually sooner.</p>
+    <a class="mail" id="mail" href="#"></a>
+    <div class="soc" id="soc"></div>
+  </div>
+  <form id="form">
+    <label>Your name<input name="n" required autocomplete="name"></label>
+    <label>Your email<input type="email" name="e" required autocomplete="email"></label>
+    <label>What is this about?<select name="t"></select></label>
+    <label>Project details<textarea name="m" required placeholder="Project goals and timeline, or role details"></textarea></label>
+    <button class="btn p" type="submit">Send message</button>
+  </form>
+</div></div></section>
+
+<footer><div class="wrap"><span id="copy"></span><span>Built with plain HTML. Hosted on GitHub Pages.</span></div></footer>
+
+
+<script>
+
+const $=s=>document.querySelector(s), esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+document.title=ME.name+" · Data Scientist & AI Engineer";
+$('#brand').textContent=ME.name; $('#copy').textContent="© "+new Date().getFullYear()+" "+ME.name;
+$('#mail').textContent=ME.email; $('#mail').href="mailto:"+ME.email;
+document.querySelectorAll('.cvl').forEach(a=>a.href=ME.cv);
+if(ME.photo)$('#photo').innerHTML='<img src="'+esc(ME.photo)+'" alt="Portrait of '+esc(ME.name)+'">';else $('#photo').textContent=ME.initials;
+$('#soc').innerHTML=ME.socials.map(([n,u])=>'<a href="'+esc(u)+'" target="_blank" rel="noopener">'+esc(n)+'</a>').join('');
+document.querySelector('select').innerHTML=SERVICES.map(s=>'<option>'+esc(s.title)+'</option>').join('')+'<option>Full-time or contract role</option><option>Something else</option>';
+
+/* services list */
+$('#svcList').innerHTML=SERVICES.map((s,i)=>'<li><a href="project.html?s='+s.id+'"><h3><span class="dot" style="background:'+s.color+'"></span>'+esc(s.title)+'</h3><p class="muted">'+esc(s.blurb)+'</p><span class="more">Details →</span></a></li>').join('');
+
+const cardHTML=(p,i,dup)=>'<a class="card'+(p.featured?' feat':'')+'" href="'+(p.direct?esc(p.direct)+'" target="_blank" rel="noopener':'project.html?p='+p.id)+'"'+(dup?' tabindex="-1" aria-hidden="true"':'')+'>'+(p.featured?'<span class="fbadge">★ Featured</span>':'')+'<div class="th">'+(p.cover?'<img src="'+esc(p.cover)+'" alt="" loading="lazy">':thumb(p.kind,p.seed))+'</div><div class="bd"><div class="metric">'+esc(p.metric)+'</div><h3>'+esc(p.title)+'</h3><div class="who">'+esc(p.who)+'</div><div class="tags">'+p.stack.slice(0,4).map(t=>'<span class="tag">'+esc(t)+'</span>').join('')+'</div><span class="go">'+(p.direct?'Open project ↗':'Read case study →')+'</span></div></a>';
+function renderWork(f){
+ const idx=PROJECTS.map((p,i)=>i).filter(i=>PROJECTS[i].status!=='in-progress'&&(!f||f=='All'||PROJECTS[i].cat==f)).sort((a,b)=>!!PROJECTS[b].featured-!!PROJECTS[a].featured);
+ let base=[];while(base.length<6)base=base.concat(idx);
+ $('#workGrid').innerHTML=base.map(i=>cardHTML(PROJECTS[i],i,false)).join('')+base.map(i=>cardHTML(PROJECTS[i],i,true)).join('');
+ $('#workGrid').style.setProperty('--dur',(base.length*9)+'s')}
+$('#pp').onclick=e=>{const on=$('#marq').classList.toggle('paused');e.currentTarget.setAttribute('aria-pressed',on);e.currentTarget.textContent=on?'Resume motion':'Pause motion'};
+const cats=['All',...new Set(PROJECTS.filter(p=>p.status!=='in-progress').map(p=>p.cat))];
+$('#filters').innerHTML=cats.map((c,i)=>'<button class="chip" aria-pressed="'+(i==0)+'">'+esc(c)+'</button>').join('');
+$('#filters').onclick=e=>{const b=e.target.closest('.chip');if(!b)return;document.querySelectorAll('#filters .chip').forEach(x=>x.setAttribute('aria-pressed',x==b));renderWork(b.textContent)};
+renderWork('All');
+/* in-progress projects */
+const wipList=PROJECTS.filter(p=>p.status==='in-progress');
+if(wipList.length){$('#wipWrap').hidden=false;$('#wip').innerHTML=wipList.map(p=>'<a class="wip" href="'+(p.direct?esc(p.direct):'project.html?p='+p.id)+'"><span class="st"><i></i>In progress</span><h3>'+esc(p.title)+'</h3><p>'+esc(p.problem)+'</p><div class="tags">'+p.stack.slice(0,3).map(t=>'<span class="tag">'+esc(t)+'</span>').join('')+'</div></a>').join('')}
+/* tools */
+$('#toolGrid').innerHTML=TOOLS.map(g=>'<div><h3 class="sub">'+esc(g.group)+'</h3><div class="tags">'+g.items.map(t=>'<span class="tag k">'+esc(t)+'</span>').join('')+'</div></div>').join('');
+/* writing (hidden when empty) */
+if(WRITING.length){$('#writing').hidden=false;$('#navw').hidden=false;$('#posts').innerHTML=WRITING.map(w=>'<a href="'+esc(w.url)+'" target="_blank" rel="noopener"><b>'+esc(w.title)+'</b><span>'+esc([w.tag,w.date].filter(Boolean).join(' · '))+'</span></a>').join('')}
+$('#jobs').innerHTML=EXPERIENCE.map(j=>'<div class="job"><div class="when">'+esc(j.when)+'</div><div><h3>'+esc(j.role)+'</h3><div class="org">'+esc(j.org)+'</div><ul>'+j.pts.map(x=>'<li>'+esc(x)+'</li>').join('')+'</ul></div></div>').join('');
+$('#edu').innerHTML=EDU.map(x=>'<li>'+esc(x[0])+'<span>'+esc(x[1])+'</span></li>').join('');
+
+
+/* contact form → opens the visitor's email app (no server needed on GitHub Pages) */
+$('#form').addEventListener('submit',e=>{e.preventDefault();const f=new FormData(e.target);
+ location.href='mailto:'+ME.email+'?subject='+encodeURIComponent(f.get('t')+' · '+f.get('n'))+'&body='+encodeURIComponent(f.get('m')+'\n\nFrom: '+f.get('n')+' <'+f.get('e')+'>')});
+
+/* theme */
+$('#theme').onclick=()=>{const t=document.documentElement.dataset.theme=='dark'?'light':'dark';document.documentElement.dataset.theme=t;try{localStorage.setItem('theme',t)}catch(e){}col()};
+
+/* hero: handwritten note + typewriter line */
+$('#hand').textContent=HAND_NOTE?HAND_NOTE+' ↙':'';
+$('#twsr').textContent='I build '+ROLES.join(', ');
+(function(){const tw=$('#tw'),R=ROLES&&ROLES.length?ROLES:[''];
+ if(!FX.typewriter||matchMedia('(prefers-reduced-motion:reduce)').matches){tw.textContent=R[0];return}
+ let i=0,j=0,del=false;
+ (function tick(){const w=R[i];tw.textContent=w.slice(0,j);
+  if(!del&&j==w.length){del=true;return setTimeout(tick,1600)}
+  if(del&&j==0){del=false;i=(i+1)%R.length}
+  j+=del?-1:1;setTimeout(tick,del?35:70)})();
+})();
+
+/* hero scatter: three clusters that drift and react to the pointer */
+const cv=$('#cv'),g=cv.getContext('2d'),reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
+let W,C,pts=[],mx=-1e3,my=-1e3;
+function col(){const s=getComputedStyle(document.documentElement);C=['--a','--c2','--c3','--muted','--line'].map(v=>s.getPropertyValue(v).trim());reduce&&draw()}
+const ctr=[[.28,.3],[.72,.42],[.42,.75]];
+function size(){const d=devicePixelRatio||1;W=cv.clientWidth;cv.width=cv.height=W*d;g.setTransform(d,0,0,d,0,0);
+ pts=[];ctr.forEach((c,k)=>{for(let i=0;i<46;i++){const a=Math.random()*6.28,r=Math.pow(Math.random(),.6)*W*.14;pts.push({k,x:c[0]*W+Math.cos(a)*r,y:c[1]*W+Math.sin(a)*r,vx:0,vy:0})}});col()}
+function draw(){g.clearRect(0,0,W,W);
+ pts.forEach(p=>{if(!reduce){const dx=p.x-mx,dy=p.y-my,d=Math.hypot(dx,dy);if(d<70){p.vx+=dx/d*(70-d)*.02;p.vy+=dy/d*(70-d)*.02}
+  const c=ctr[p.k];p.vx+=(c[0]*W-p.x)*.0009+(Math.random()-.5)*.12;p.vy+=(c[1]*W-p.y)*.0009+(Math.random()-.5)*.12;p.vx*=.93;p.vy*=.93;p.x+=p.vx;p.y+=p.vy}
+  g.fillStyle=C[p.k];g.globalAlpha=.85;g.beginPath();g.arc(p.x,p.y,4.2,0,6.28);g.fill()});
+ g.globalAlpha=1;ctr.forEach((c,k)=>{g.strokeStyle=C[k];g.lineWidth=2;const x=c[0]*W,y=c[1]*W;g.beginPath();g.moveTo(x-9,y);g.lineTo(x+9,y);g.moveTo(x,y-9);g.lineTo(x,y+9);g.stroke();g.beginPath();g.arc(x,y,W*.17,0,6.28);g.setLineDash([4,6]);g.stroke();g.setLineDash([])});
+ if(!reduce)requestAnimationFrame(draw)}
+cv.addEventListener('pointermove',e=>{const r=cv.getBoundingClientRect();mx=e.clientX-r.left;my=e.clientY-r.top});
+cv.addEventListener('pointerleave',()=>{mx=my=-1e3});
+addEventListener('resize',()=>{size();reduce&&draw()});
+size();draw();
+</script>
+</body>
+</html>
